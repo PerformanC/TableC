@@ -1,6 +1,6 @@
 # The tablec_get function
 
-The `tablec_get` function is used to get the value of a key using the key as a search parameter and returning the value of the key.
+The `tablec_get` function is used to get the value of a key using the key as a search parameter and returning the value of it.
 
 ## Usage
 

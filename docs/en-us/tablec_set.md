@@ -9,8 +9,8 @@
 The example below will save a key named `furry` with the value `true`:
 
 ```c
-//          Table     Key    Length     Value
-tablec_set(&tablec, "furry",   0,   (void *)true);
+//          Table     Key    Length       Value
+tablec_set(&tablec, "furry",   0,     (void *)true);
 ```
 
 The parameter length is a super important field, that you can make `tablec_set` function faster, but if you don't know the length of the key, you can set it to `0`, and it will calculate the length of the key, but it will be slower.
@@ -29,7 +29,7 @@ NULL tablec_set(
 `tablec_set` is the function with the most parameters, having 4 parameters, take a look at them:
 
 *  `Table`  - `struct hashtable` The hashtable variable, is used to save keys and values.
-*  `Ley`    - `char *`           The key to search the value related to it.
+*  `Key`    - `char *`           The key to search the value related to it.
 *  `Length` - `size_t`           The length of the key, `0` will make TableC calculate it.
 *  `Value`  - `void *`           The value to save to the key.
 
@@ -49,6 +49,5 @@ First, it will look if the first key of the hashtable is filled, if it's not, it
 
 ## See also
 
-*  [`tablec_set`](tablec_set.md) - Setting values to keys.
 *  [`tablec_get`](tablec_get.md) - Getting values based on a key.
 *  [`tablec_del`](tablec_del.md) - Deleting keys of the hashtable.

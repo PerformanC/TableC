@@ -12,7 +12,7 @@ Another is that the closed-addressing is an approach that would end up being a b
 
 ## Systems used by TableC
 
-Tablec is smart, and it uses a lot of features and codes to improve its performance, some of them are:
+TableC is smart, and it uses a lot of features and codes to improve its performance, some of them are:
 
 *  Uses an empty slot array to list slots that are empty so they can be fastly accessed and re-used.
 *  Saves the length and capacity of the empty slots array from the hashtable, so it can be fastly read, written, and deleted.
@@ -43,7 +43,7 @@ That's the point, you should not use it for now, till more testing is done, but 
 
 ## How to use TableC
 
-In the guides folder, there will be a set of guides on how to use each of its functions, you can see them, and use them in your projects. And also the tests folder, there will be a set of tests used to test TableC, and you can use some of its code in your projects.
+In the docs folder, there will be a set of documentation on how to use each of its functions, you can see them, and use them in your projects. And also the tests folder, there will be a set of tests used to test TableC, and you can use some of its code in your projects.
 
 ## How to pronounce TableC
 

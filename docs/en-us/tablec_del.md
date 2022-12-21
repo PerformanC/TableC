@@ -41,7 +41,8 @@ First, it will see what's the capacity of the bucket, and with it, it will defin
 
 ## Stability
 
-`tablec_del` is not stable, because of being complex and having many if statements, which makes it hard to debug, and it's considered stable, but it's safe to use it.
+
+`tablec_del` is not stable, because of being complex and having many if statements, which makes it hard to debug, but even with that, it's safe to use it.
 
 ## See also
 

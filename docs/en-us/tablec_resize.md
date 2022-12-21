@@ -1,6 +1,6 @@
 # The tablec_resize function
 
-`tablec_resize` is not an important function, whatsoever, it's just a function that expands the hashtable, and it's used by `tablec_set` when the hashtable is full, but only if the `secure mode` is enabled.
+`tablec_resize` is not an important function, whatsoever, it's just a function that resizes the hashtable, and it's used by `tablec_set` when the hashtable is full, but only if the `secure mode` is enabled.
 
 ## Usage
 

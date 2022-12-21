@@ -6,12 +6,10 @@ The `tablec_init` function is the most important function, which initialized the
 
 `tablec_init` is easy to comprehend, but you need to pay attention to the hashtable maximum capacity, which if you set more keys than the maximum capacity, would end up not working, so be careful with it.
 
-`tablec_resize` is simple to use, but if you resize the hashtable with a value that is smaller than the current capacity, it will end up in a crash, so be careful with it.
-
 ```c
 struct hashtable tablec;
-//          Table     Capacity Secure mode
-tablec_init(&tablec,   314159,    true);
+//          Table     Capacity    Secure mode
+tablec_init(&tablec,   314159,       true);
 ```
 
 ## Parameters
@@ -19,8 +17,8 @@ tablec_init(&tablec,   314159,    true);
 `tablec_init` has 3 parameters, used to initialize and allocate some fields, take a look at them:
 
 *  `Table`       - `struct hashtable` The hashtable variable, is used to save keys and values.
-*  `Capacity`    - `size_t`           The new capacity of the hashtable.
-*  `Secure mode` - `_Bool`            Bool for secure mode, enabling or disabling it.
+*  `Capacity`    - `size_t`           The maximum capacity of the hashtable.
+*  `Secure mode` - `int`              Int for secure mode, enabling or disabling it.
 
 ## Return value
 
@@ -36,7 +34,7 @@ tablec_init(&tablec,   314159,    true);
 
 ## See also
 
-
+*  [`tablec_set`](tablec_set.md) - Setting values to keys.
 *  [`tablec_get`](tablec_get.md) - Getting values based on a key.
 *  [`tablec_del`](tablec_del.md) - Deleting keys of the hashtable.
-*  [`tablec_expand`](tablec_init.md) - Initializing the hashtable.
+*  [`tablec_resize`](tablec_resize.md) - Resizes the hashtable.
