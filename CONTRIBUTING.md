@@ -2,17 +2,21 @@
 
 ## Before opening a pull request
 
-Before you open a pull request, there are a few things you need to make sure to do.
+In PerformanC projects, we are always trying to make the code consistent, principally the code syntax, for this, we have some guidelines when you are contributing to The TableC Project, here is a list of some of the guidelines, but remember to make a good and clean code:
 
-* Make sure that the version that you edited was the latest, or else there are chances of creating a merge conflict, and ending up having your pull request declined.
-* Make sure that you are using the same code style as the rest of the project, if you are using a different code style, your pull request will be declined.
-* Make sure that you are not breaking any of the tests, if you are, your pull request will be declined.
-* If you edited one of the parameters of a function, make sure you updated the guides, but this is optional.
-* You must run the fuzzy benchmarking, to compare how the performance of the library changed, this is important for us when deciding if the PR will be accepted.
+* Be sure that the version that you are going to commit the changes to is the latest, if not, conflicts may cause your PR to be not accepted.
+
+* You need to use the same syntax and style from the test of the project, in any questions, follow to the next section.
+
+* Make sure to run Fuzzy Benchmarking testing and Special Cases testing before opening a pull request, those will be as well asked in the PR template.
+
+* This one is optional, but when editing a parameter of a function, or even changing the way a function works, make sure to update in the docs.
 
 ## Code syntax and style
 
-TableC uses my syntax, which uses 2 spaces identation, the syntax of the added code MUST match the syntax of the rest of the project, see an example below:
+TableC uses its own syntax, which uses a 2-space indentation, and the code MUST have compatibility of at least C99+, breaking support of newer versions of C is not allowed. 
+
+The example below is an example of using TableC's syntax:
 
 ```c
 void function(void) {
@@ -44,10 +48,4 @@ void function(void) {
 
 ## Code comments
 
-The code comments MUST be in either English or Portuguese (BR), if you are using a different language, your pull request won't be declined, but it will be asked for you to translate for one of those languages.
-
-## Main (not programming) languages
-
-The main languages of TableC are Portuguese and English, but Portuguese is limited to only comments.
-
-In case you don't speak any of those languages, you can use tools like Google translator to translate, but you must make sure that the translation is correct, and that it is understandable.
+The TableC Project has 2 main languages, English and Portuguese from Brazil, those languages can be used anywhere on the project, but only English can be used for variable names, function names, and parameters, and only Portuguese from Brazil can be used, other ones like Portuguese from Portugal or Spanish will not be accepted.
