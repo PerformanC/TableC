@@ -12,8 +12,8 @@
 
 #include "../tablec.h"
 
-#define MAX_EXECUTE 1000
-#define ADD_TIMES 100000
+#define MAX_EXECUTE 100
+#define ADD_TIMES 10000
 
 char *Benchmarking[] = { "TableC" };
 
@@ -31,7 +31,7 @@ double firstBench() {
     tablec_set(&tablec, key, 0, value);
     char *abc = NULL;
     abc = tablec_get(&tablec, key, 0);
-    tablec_del(&tablec, key, 0);
+    //tablec_del(&tablec, key, 0);
   }
 
   tablec_cleanup(&tablec);

@@ -97,8 +97,8 @@ TEST see_empty_slots_after_deleting(void) {
 
 TEST mini_fuzzy_testing(void) {
   struct hashtable tablec;
-  tablec_init(&tablec, 16, 1);
-  ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)16);
+  tablec_init(&tablec, 1000, 1);
+  ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)1000);
 
   char keyRandom[100];
   size_t i = 0;
