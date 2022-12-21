@@ -4,12 +4,12 @@
 struct hashtable_buckets_array {
   char *key;
   char *value;
-  _Bool filled;
+  int filled;
 };
 
 struct hashtable_buckets_array_empty {
   size_t index;
-  _Bool filled;
+  int filled;
 };
 
 struct hashtable_buckets {
@@ -21,13 +21,13 @@ struct hashtable_buckets {
 };
 
 struct hashtable {
-  _Bool secure_mode;
+  int secure_mode;
   size_t length;
   size_t capacity;
   struct hashtable_buckets *buckets;
 };
 
-void tablec_init(struct hashtable *tablec, size_t max_capacity, _Bool secure_mode);
+void tablec_init(struct hashtable *tablec, size_t max_capacity, int secure_mode);
 
 void tablec_resize(struct hashtable *tablec, size_t new_max_capacity);
 
