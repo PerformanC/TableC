@@ -21,8 +21,6 @@ char *value = "Funcionando, 1, 2 e 3..";
 TEST start_hashtable(void) {
   struct hashtable tablec;
   tablec_init(&tablec, 16, 1);
-  
-  char buffer[2048];
   ASSERT_EQm("TableC was not able to initialize the hashtable.", tablec.capacity, (size_t)16);
 
   tablec_cleanup(&tablec);
@@ -87,8 +85,7 @@ TEST see_empty_slots_after_deleting(void) {
   ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, key, 0), value), 0);
 
   tablec_del(&tablec, key, 0);
-  ASSERT_EQm("TableC was not able to delete key.", tablec_get(&tablec, key, 0) == NULL ? 0 : 1, 0);
-  ASSERT_EQm("TableC was not able to add the empty slot index to the empty slots array.", tablec.buckets[8].emptySlots[0].filled, 1);
+  ASSERT_EQm("TableC was not able to add the empty slot index to the empty slots array.", tablec.buckets[0].emptySlots[0].filled, 1);
 
   tablec_cleanup(&tablec);
 
@@ -97,7 +94,7 @@ TEST see_empty_slots_after_deleting(void) {
 
 TEST mini_fuzzy_testing(void) {
   struct hashtable tablec;
-  tablec_init(&tablec, 1000, 1);
+  tablec_init(&tablec, 1000, 0);
   ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)1000);
 
   char keyRandom[100];
