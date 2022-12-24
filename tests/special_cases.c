@@ -15,7 +15,8 @@
 #include "greatest.h"
 #include "../tablec.h"
 
-char *key = "Hello";
+char *key = "hello";
+char *otherKey = "8";
 char *value = "Funcionando, 1, 2 e 3..";
 
 TEST start_hashtable(void) {
@@ -53,6 +54,30 @@ TEST setting_key_and_read_after_deleting(void) {
   ASSERT_EQm("TableC was not able to delete key.", tablec_get(&tablec, key, 0) == NULL ? 0 : 1, 0);
 
   tablec_set(&tablec, key, 0, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, key, 0), value), 0);
+
+  tablec_cleanup(&tablec);
+
+  PASSm("TableC was able to set a key and a value after deleting the same key.");
+}
+
+TEST setting_2_keys_with_the_same_pos_and_deleting(void) {
+  struct hashtable tablec;
+  tablec_init(&tablec, 100, 1);
+  ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)100);
+
+  tablec_set(&tablec, key, 0, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, key, 0), value), 0);
+
+  tablec_set(&tablec, otherKey, 0, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, otherKey, 0), value), 0);
+
+  tablec_del(&tablec, key, 0);
+  ASSERT_EQm("TableC was not able to add the deleted key on the empty slots array.", tablec.buckets[56].emptySlots[0].filled, 1);
+  ASSERT_EQm("TableC was not able to delete key.", tablec_get(&tablec, key, 0) == NULL ? 0 : 1, 0);
+
+  tablec_set(&tablec, key, 0, value);
+  ASSERT_EQm("Tablec was not able to retrieve empty slots array and use it.", tablec.buckets[56].emptySlots[0].filled, 0);
   ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, key, 0), value), 0);
 
   tablec_cleanup(&tablec);
@@ -115,6 +140,7 @@ SUITE(special_cases) {
   RUN_TEST(start_hashtable);
   RUN_TEST(setting_key);
   RUN_TEST(setting_key_and_read_after_deleting);
+  RUN_TEST(setting_2_keys_with_the_same_pos_and_deleting);
   RUN_TEST(deleting_and_reading_non_exist_key);
   RUN_TEST(see_empty_slots_after_deleting);
   RUN_TEST(mini_fuzzy_testing);

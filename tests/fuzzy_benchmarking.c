@@ -1,15 +1,12 @@
 /*
-  This benchmark is used by TableC for fuzzing testing, and also testing of the functions.
-  Also for testing performance of the library. Remember that this benchmark is NOT manipulated, and all values are real, 
-  .. but they can change depending of the background apps, and from your hardware.
+  This benchmarking was carried out by PerformanC, and it is not permitted to sell this code as a standalone product.
+
+  Please note that this code does not follow the same license as TableC and is not a part of TableC. It is only intended for use in benchmarking the library.
+  For any commercial use, please contact PerformanC directly.
 */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
-#include <string.h>
-#include <stdbool.h>
-
 #include "../tablec.h"
 
 #define MAX_EXECUTE 100
@@ -26,12 +23,13 @@ double firstBench() {
   char key[100];
   char *value = "Benchmarking";
 
-  for (double i = 0;i < ADD_TIMES;i++) {
+  double i = 0;
+  while (i <= ADD_TIMES) {
     snprintf(key, sizeof(key), "%f", i);
     tablec_set(&tablec, key, 0, value);
-    char *abc = NULL;
-    abc = tablec_get(&tablec, key, 0);
-    //tablec_del(&tablec, key, 0);
+    char *abc = tablec_get(&tablec, key, 0);
+    tablec_del(&tablec, key, 0);
+    i++;
   }
 
   tablec_cleanup(&tablec);

@@ -82,8 +82,6 @@ void tablec_set(struct hashtable *tablec, char *key, size_t keyLength, void *val
       case 0: {
         size_t i = -1;
 
-        searchBuckets:
-
         do {
           i++;
           if (!tablec->buckets[pos].array[i].filled) {
@@ -111,8 +109,36 @@ void tablec_set(struct hashtable *tablec, char *key, size_t keyLength, void *val
         break;
       }
       case 1: {
-        if (!tablec->buckets[pos].emptySlots[0].filled) goto searchBuckets;
-        
+        if (!tablec->buckets[pos].emptySlots[0].filled) {
+          size_t i = -1;
+
+          do {
+            i++;
+            if (!tablec->buckets[pos].array[i].filled) {
+               tablec->buckets[pos].array[i].key = key;
+              tablec->buckets[pos].array[i].value = value;
+              tablec->buckets[pos].array[i].filled = 1;
+
+              tablec->buckets[pos].length++;
+              break;
+            }
+
+            if (i != tablec->buckets[pos].length - 1) continue;
+
+            __tablec_expandBucketArr(&tablec->buckets[pos], tablec->buckets[pos].capacity * 2);
+
+            tablec->buckets[pos].array[tablec->buckets[pos].capacity - 1].key = key;
+            tablec->buckets[pos].array[tablec->buckets[pos].capacity - 1].value = value;
+            tablec->buckets[pos].array[tablec->buckets[pos].capacity - 1].filled = 1;
+
+            tablec->buckets[pos].length++;
+
+            break;
+          } while (i < tablec->buckets[pos].length);
+
+          break;
+        }
+
         tablec->buckets[pos].array[tablec->buckets[pos].emptySlots[0].index].key = key;
         tablec->buckets[pos].array[tablec->buckets[pos].emptySlots[0].index].value = value;
         tablec->buckets[pos].array[tablec->buckets[pos].emptySlots[0].index].filled = 1;
@@ -166,7 +192,7 @@ void tablec_del(struct hashtable *tablec, char *key, size_t keyLength) {
     tablec->buckets[pos].array[0].value = NULL;
     tablec->buckets[pos].array[0].filled = 0;
   } else {
-    size_t i = 0;
+    size_t i = -1;
     do {
       i++;
       if (!tablec->buckets[pos].array[i].filled || strcmp(tablec->buckets[pos].array[i].key, key) != 0) continue;
@@ -174,6 +200,8 @@ void tablec_del(struct hashtable *tablec, char *key, size_t keyLength) {
       tablec->buckets[pos].array[i].key = NULL;
       tablec->buckets[pos].array[i].value = NULL;
       tablec->buckets[pos].array[i].filled = 0;
+
+      break;
     } while (i < tablec->buckets[pos].length);
 
     switch(tablec->buckets[pos].emptyCapacity) {
@@ -181,7 +209,7 @@ void tablec_del(struct hashtable *tablec, char *key, size_t keyLength) {
         tablec->buckets[pos].emptyCapacity++;
         tablec->buckets[pos].emptySlots = malloc(sizeof(struct hashtable_buckets_array_empty));
 
-        tablec->buckets[pos].emptySlots[0].index = pos;
+        tablec->buckets[pos].emptySlots[0].index = i;
         tablec->buckets[pos].emptySlots[0].filled = 1;
 
         break;
@@ -191,13 +219,13 @@ void tablec_del(struct hashtable *tablec, char *key, size_t keyLength) {
           tablec->buckets[pos].emptyCapacity++;
           tablec->buckets[pos].emptySlots = malloc(sizeof(struct hashtable_buckets_array_empty) * tablec->buckets[pos].emptyCapacity);
 
-          tablec->buckets[pos].emptySlots[tablec->buckets[pos].emptyCapacity - 1].index = pos;
+          tablec->buckets[pos].emptySlots[tablec->buckets[pos].emptyCapacity - 1].index = i;
           tablec->buckets[pos].emptySlots[tablec->buckets[pos].emptyCapacity - 1].filled = 1;
 
           break;
         }
-            
-        tablec->buckets[pos].emptySlots[0].index = pos;
+
+        tablec->buckets[pos].emptySlots[0].index = i;
         tablec->buckets[pos].emptySlots[0].filled = 1;
 
         break;
@@ -209,14 +237,14 @@ void tablec_del(struct hashtable *tablec, char *key, size_t keyLength) {
             tablec->buckets[pos].emptyCapacity++;
             tablec->buckets[pos].emptySlots = realloc(tablec->buckets[pos].emptySlots, sizeof(struct hashtable_buckets_array_empty) * tablec->buckets[pos].emptyCapacity + 1);
 
-            tablec->buckets[pos].emptySlots[j].index = pos;
+            tablec->buckets[pos].emptySlots[j].index = i;
             tablec->buckets[pos].emptySlots[j].filled = 1;
 
             break;
           }
 
           if (!tablec->buckets[pos].emptySlots[j].filled) {
-            tablec->buckets[pos].emptySlots[j].index = pos;
+            tablec->buckets[pos].emptySlots[j].index = i;
             tablec->buckets[pos].emptySlots[j].filled = 1;
 
             break;
@@ -233,15 +261,15 @@ void tablec_del(struct hashtable *tablec, char *key, size_t keyLength) {
 void *tablec_get(struct hashtable *tablec, char *key, size_t keyLength) {
   size_t pos = __tablec_mkIndex(tablec, key, keyLength);
 
-  size_t i = -1;
+  size_t i = 0;
   void *value = NULL;
 
   do {
+    if (tablec->buckets[pos].array[i].filled && strcmp(tablec->buckets[pos].array[i].key, key) == 0) {
+      value = tablec->buckets[pos].array[i].value;
+      break;
+    }
     i++;
-    if (!tablec->buckets[pos].array[i].filled || strcmp(tablec->buckets[pos].array[i].key, key) != 0) continue;
-
-    value = tablec->buckets[pos].array[i].value;
-    break;
   } while (i < tablec->buckets[pos].length);
 
   return value;
@@ -250,7 +278,7 @@ void *tablec_get(struct hashtable *tablec, char *key, size_t keyLength) {
 void tablec_cleanup(struct hashtable *tablec) {
   size_t i = 0;
   do {
-    free(tablec->buckets[i].emptySlots);
+    if (tablec->buckets[i].emptyCapacity != 0) free(tablec->buckets[i].emptySlots);
     i++;
   } while (i < tablec->capacity);
   free(tablec->buckets);

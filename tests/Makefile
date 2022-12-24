@@ -1,6 +1,6 @@
 CC := clang
 
-FLAGS := -I.. -std=c89 -g
+FLAGS := -I.. -std=c89 -ggdb
 FILES := special_cases.c ../tablec.c
 
 all:
@@ -9,7 +9,7 @@ all:
 	rm *.o
 	rm *.a
 	$(CC) $(FILES) $(FLAGS) -o test
-	$(CC) fuzzy_benchmarking.c ../tablec.c -I.. -std=c89 -o benchmark
+	$(CC) fuzzy_benchmarking.c ../tablec.c -I.. -std=c89 -o benchmark 
 
 clear:
 	rm test

@@ -12,9 +12,9 @@ Advanced and portable closed-addressing hashtable implementation for C.
 
 ## Performance
 
-TableC has high efficiency and performance, allowing it to be used on embedded systems, and also on high-end devices, like servers, and desktops.
+TableC has high efficiency and performance, allowing it to be used on embedded systems, as well as on high-end devices like servers and desktops.
 
-Because of that, TableC has an incredible speed, especially when in good conditions for it, deleting a key after using it.
+It has an incredible speed, especially when in good conditions for it, such as deleting a key after using it.
 
 And all that for a new library, that was not fully optimized yet, but it's getting there.
 
@@ -24,11 +24,11 @@ GNOME Alpine Linux v3.17 x64 (i5-2520M CPU, 3.200GHz x 2 cores, 4 threads with 8
 
 | Samples | Repetitions (stabilization) | Time per sample |
 | ------- | --------------------------- | --------------- |
-| 1000    | 10000                       | 0.000561s       |
-| 10000   | 1000                        | 0.001759s       |
-| 100000  | 100                         | 0.049271s       |
+| 1000    | 10000                       | 0.008209s       |
+| 10000   | 1000                        | 0.000755s       |
+| 100000  | 100                         | 0.093375s       |
 
-Those results shouldn't be taken as a reference, but they are not manipulated. The reason for this benchmark is to see the performance of the library, allowing to the user see how it performs.
+Those results shouldn't be taken as a reference, but they are not manipulated. The purpose of this benchmark is to see the performance of the library, allowing the user to see how it performs.
 
 ## Usage
 
@@ -38,13 +38,13 @@ The docs folder is a way to see the usage of the library, and how each function 
 
 ## Documentation
 
-TableC is a well-documented library, which the documentation can be seen in the [docs folder, with handwriting documentation specific to each function, with detailed and complete explanations of all (public) functions.
+The documentation can be seen in the [docs folder], with handwriting documentation specific to each function, with detailed and complete explanations of all (public) functions.
 
 ## Why TableC?
 
-One of the best reasons to use TableC is because of its high portability, being possible to compile it in any system, and because of its high performance, which allows its use on low-end and embedded systems.
+One of the best reasons to use TableC is because of its high portability, allowing it to be compiled on any system, and because of its high performance, which allows it to be used on low-end and embedded systems.
 
-Another reason is that it's simple, complete, and has good documentation.
+Another reason is that it is simple, complete, and has good documentation.
 
 ## Contributing
 
@@ -58,11 +58,11 @@ TableC is a PerformanC project, and because of that, any type of question can be
 
 ## License
 
-TableC is a project licensed under the MIT License, which means that you can use it commercially, and non-commercially, but there is a restriction, which is that you can't use it for any kind AI training (Machine Learning).
+TableC uses a customized license created by PerformanC, which has the same rights as a MIT license, except it includes a clause stating that you cannot use this software (library) to train a neural network.
 
 ## Projects using TableC
 
-Since TableC is a new library, it's not a popular library, and it's not used in a lot of projects, but in case you have an Open Source project using TableC, feel free to make a pull request adding it on this list.
+Since TableC is a new library, it is not a popular library, and it is not used in many projects, but in case you have an Open Source project using TableC, feel free to make a pull request adding it to this list.
 
 [Experimental] [Coglink](https://github.com/PerformanC/Coglink) by PerformanC (TableC team)
 
