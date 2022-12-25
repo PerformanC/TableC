@@ -18,7 +18,7 @@ double firstBench() {
   clock_t startTime = clock();
 
   struct hashtable tablec;
-  tablec_init(&tablec, ADD_TIMES, 1);
+  tablec_init(&tablec, ADD_TIMES + 1, 1);
 
   char key[100];
   char *value = "Benchmarking";

@@ -100,8 +100,8 @@ TEST deleting_and_reading_non_exist_key(void) {
 
 TEST see_empty_slots_after_deleting(void) {
   struct hashtable tablec;
-  tablec_init(&tablec, 16, 1);
-  ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)16);
+  tablec_init(&tablec, 100, 1);
+  ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)100);
 
   tablec_set(&tablec, key, 0, value);
   ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, key, 0), value), 0);
@@ -110,7 +110,7 @@ TEST see_empty_slots_after_deleting(void) {
   ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, key, 0), value), 0);
 
   tablec_del(&tablec, key, 0);
-  ASSERT_EQm("TableC was not able to add the empty slot index to the empty slots array.", tablec.buckets[0].emptySlots[0].filled, 1);
+  ASSERT_EQm("TableC was not able to add the empty slot index to the empty slots array.", tablec.buckets[56].emptySlots[0].filled, 1);
 
   tablec_cleanup(&tablec);
 
