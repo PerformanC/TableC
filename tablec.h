@@ -4,7 +4,6 @@
 struct hashtable_buckets_array {
   char *key;
   char *value;
-  int filled;
 };
 
 struct hashtable_buckets_array_empty {
