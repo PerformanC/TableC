@@ -10,11 +10,11 @@ void tablec_init(struct hashtable *tablec, size_t max_capacity, int secure_mode)
   tablec->secure_mode = secure_mode;
 
   while (max_capacity-- != 0) {
-    tablec->buckets[max_capacity].capacity = 0;
+    tablec->buckets[max_capacity].nodes = malloc(sizeof(struct hashtable_buckets_array));
+    tablec->buckets[max_capacity].nodes->key = NULL;
+    tablec->buckets[max_capacity].nodes->value = NULL;
     tablec->buckets[max_capacity].length = 0;
-    tablec->buckets[max_capacity].array = malloc(sizeof(struct hashtable_buckets_array));
-    tablec->buckets[max_capacity].array[0].key = NULL;
-    tablec->buckets[max_capacity].array[0].value = NULL;
+    tablec->buckets[max_capacity].nodes->next = NULL;
   }
 }
 
@@ -24,57 +24,51 @@ void tablec_resize(struct hashtable *tablec, size_t new_max_capacity) {
   tablec->buckets = realloc(tablec->buckets, sizeof(struct hashtable_buckets) * new_max_capacity);
 }
 
-size_t __tablec_hash(struct hashtable *tablec, char *key) {
+size_t __tablec_hash(struct hashtable *tablec, char *key, size_t *size) {
   size_t hash = 0, i = 0;
 
   while (key[i] != '\0') hash = hash * 37 + (key[i++] & 255);
+
+  *size = i;
 
   return hash % tablec->capacity;
 }
 
 void tablec_set(struct hashtable *tablec, char *key, void *value) {
-  size_t hash = __tablec_hash(tablec, key);
+  size_t keyLength;
+  size_t hash = __tablec_hash(tablec, key, &keyLength);
 
-  if (tablec->buckets[hash].capacity == 0) {
-    if (tablec->buckets[hash].array[0].key == NULL) {
-      tablec->buckets[hash].array[0].key = key;
-      tablec->buckets[hash].array[0].value = value;
+  if (tablec->buckets[hash].length == 0) {
+    if (tablec->buckets[hash].nodes->key == NULL) {
+      tablec->buckets[hash].nodes->key = key;
+      tablec->buckets[hash].nodes->value = value;
+      tablec->buckets[hash].nodes->length = keyLength;
 
+      tablec->buckets[hash].length++;
       tablec->length++;
 
       return;
     } else {
-      tablec->buckets[hash].capacity = 1;
-      tablec->buckets[hash].array = realloc(tablec->buckets[hash].array, sizeof(struct hashtable_buckets_array) * 2);
+      tablec->buckets[hash].nodes->next->key = key;
+      tablec->buckets[hash].nodes->next->value = value;
+      tablec->buckets[hash].nodes->next->length = keyLength;
 
-      tablec->buckets[hash].array[1].key = key;
-      tablec->buckets[hash].array[1].value = value;
-
-      tablec->buckets[hash].length = 1;
+      tablec->buckets[hash].length++;
       tablec->length++;
 
       return;
     }
   } else {
-    size_t i = -1;
+    struct hashtable_buckets_array *nodes = tablec->buckets[hash].nodes;
 
-    while (i++ != tablec->buckets[hash].capacity) {
-      if (tablec->buckets[hash].array[i].key == NULL) {
-        tablec->buckets[hash].array[i].key = key;
-        tablec->buckets[hash].array[i].value = value;
-
-        tablec->buckets[hash].length++;
-        tablec->length++;
-
-        return;
+    do {
+      if (nodes->key == NULL) {
+        nodes->key = key;
+        nodes->value = value;
+        break;
       }
-    }
-
-    tablec->buckets[hash].capacity = (tablec->buckets[hash].capacity * 2) - 1;
-    tablec->buckets[hash].array = realloc(tablec->buckets[hash].array, sizeof(struct hashtable_buckets_array) * (tablec->buckets[hash].capacity * 2));
-
-    tablec->buckets[hash].array[tablec->buckets[hash].capacity].key = key;
-    tablec->buckets[hash].array[tablec->buckets[hash].capacity].value = value;
+      nodes = nodes->next;
+    } while (nodes != NULL);
 
     tablec->buckets[hash].length++;
     tablec->length++;
@@ -84,40 +78,52 @@ void tablec_set(struct hashtable *tablec, char *key, void *value) {
 }
 
 void tablec_del(struct hashtable *tablec, char *key) {
-  size_t hash = __tablec_hash(tablec, key);
+  size_t keyLength;
+  size_t hash = __tablec_hash(tablec, key, &keyLength);
 
-  if (tablec->buckets[hash].capacity == 0) {
-    tablec->buckets[hash].array[0].key = NULL;
-    tablec->buckets[hash].array[0].value = NULL;
+  if (tablec->buckets[hash].length == 0) {
+    tablec->buckets[hash].nodes->key = NULL;
+    tablec->buckets[hash].nodes->value = NULL;
 
+    tablec->buckets[hash].length--;
     tablec->length--;
 
     return;
   } else {
-    size_t i = -1;
-
-    while (i++ != tablec->buckets[hash].capacity) {
-      if (tablec->buckets[hash].array[i].key != NULL && strcmp(tablec->buckets[hash].array[i].key, key) == 0) {
-        tablec->buckets[hash].array[i].key = NULL;
-        tablec->buckets[hash].array[i].value = NULL;
-
-        tablec->length--;
-
-        return;
+    do {
+      if (tablec->buckets[hash].nodes->key != NULL && memcmp(tablec->buckets[hash].nodes->key, key, keyLength) == 0) {
+        printf("Found key\n");
+        tablec->buckets[hash].nodes->key = NULL;
+        tablec->buckets[hash].nodes->value = NULL;
+        break;
       }
-    }
+    } while (tablec->buckets[hash].nodes->next != NULL);
+
+    tablec->buckets[hash].length--;
+    tablec->length--;
+
+    return;
   }
 }
 
 void *tablec_get(struct hashtable *tablec, char *key) {
-  size_t hash = __tablec_hash(tablec, key);
+  size_t keyLength;
+  size_t hash = __tablec_hash(tablec, key, &keyLength);
 
-  size_t i = -1;
+  struct hashtable_buckets_array *nodes = tablec->buckets[hash].nodes;
+
+  if (nodes->key != NULL && memcmp(tablec->buckets[hash].nodes->key, key, keyLength) == 0) {
+    return tablec->buckets[hash].nodes->value;
+  }
+
+  nodes = tablec->buckets[hash].nodes->next;
   
-  while (i++ != tablec->buckets[hash].capacity) {
-    if (tablec->buckets[hash].array[i].key != NULL && strcmp(tablec->buckets[hash].array[i].key, key) == 0) {
-      return tablec->buckets[hash].array[i].value;
+  while (nodes != NULL) {
+    printf("abc\n");
+    if (nodes->key != NULL && memcmp(nodes->key, key, keyLength) == 0) {
+      return nodes->value;
     }
+    nodes = nodes->next;
   }
 
   return NULL;
@@ -128,7 +134,6 @@ int tablec_full(struct hashtable *tablec) {
 }
 
 void tablec_cleanup(struct hashtable *tablec) {
-  while (tablec->capacity-- != 0) free(tablec->buckets[tablec->capacity].array);
   free(tablec->buckets);
   tablec = NULL;
 }

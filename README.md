@@ -2,6 +2,10 @@
 
 Advanced and portable closed-addressing hashtable implementation for C.
 
+## Branch info
+
+This branch is marked as secondary branch, being the mirror of the closed-addressing branch but using the linked list technique instead of the dynamic arrays.
+
 ## Features
 
 - [x] Simple & low-level API

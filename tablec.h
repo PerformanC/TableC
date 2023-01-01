@@ -4,12 +4,13 @@
 struct hashtable_buckets_array {
   char *key;
   void *value;
+  size_t length;
+  struct hashtable_buckets_array *next;
 };
 
 struct hashtable_buckets {
-  struct hashtable_buckets_array *array;
+  struct hashtable_buckets_array *nodes;
   size_t length;
-  size_t capacity;
 };
 
 struct hashtable {
