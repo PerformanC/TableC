@@ -7,23 +7,20 @@ A função `tablec_get` é usada para pegar o valor de uma chave usando a chave 
 `tablec_get` é uma função fácil de se usar, e a sua sintaxe é fácil de se entender e ler, aqui vai um exemplo de pegar o valor da chave `furry`:
 
 ```c
-//                      Table    Chave    Comprimento
-int value = tablec_get(&tablec, "furry",      0);
+//                      Table    Chave
+int value = tablec_get(&tablec, "furry");
 
 printf("[TableC]: O valor da chave \"furry\": %d\n", value);
 ```
 
 Lembre-se que isso irá apenas retornar o valor da chave se você tiver definido ela antes, se você não tiver definido ela, irá retornar `NULL`. Caso você queira definir ela, veja a documentação da função [`tablec_set`](tablec_set.md) para ver como definir ela.
 
-O parâmetro de comprimento é muito importante, você pode fazer a função `tablec_get` ficar mais rápida, mas se você não souber o comprimento da chave, você pode definir ele para `0`, e ele irá calcular o comprimento da chave, mas isso deixará a função mais lenta.
-
 ## Parâmetros
 
 ```c
 void *tablec_get(
   struct hashtable *tablec,
-  char *            comprementa,
-  size_t            comprimentoDaChave
+  char *            comprementa
 );
 ```
 
@@ -31,7 +28,6 @@ void *tablec_get(
 
 *  `Table`       - `struct hashtable` A variável da hashtable, usada para salvar chaves e valores nela.
 *  `Chave`       - `char *`           A chave para achar o valor relacionada a ela.
-*  `Comprimento` - `size_t`           O comprimento da chave, `0` irá fazer o TableC calcular.
 
 ## Valor de retorno
 

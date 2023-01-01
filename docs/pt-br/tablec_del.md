@@ -7,19 +7,16 @@ A função `tablec_del` é uma função importante, pois é um dos sistemas usad
 `tablec_del` é uma das funções mais fáceis de se usar, já que o seu uso necessita de poucos parâmetros, e é fácil de se entender, aqui vai um exemplo de deletando a chave `furry`:
 
 ```c
-//          Table    Chave    Comprimento
-tablec_del(&tablec, "furry",      0);
+//          Table    Chave
+tablec_del(&tablec, "furry");
 ```
-
-O parâmetro de comprimento é um parâmetro de alta importância, já que você pode fazer a função `tablec_del` ser mais rápida, mas se você não sabe o comprimento da chave, você pode definir como `0`, e ele irá calcular o comprimento da chave, mas isso irá deixar a função mais lenta.
 
 ## Parâmetros
 
 ```c
 NULL tablec_del(
   struct hashtable *tablec,
-  char *            chave,
-  size_t            comprimentoDaChave
+  char *            chave
 );
 ```
 
@@ -27,7 +24,6 @@ NULL tablec_del(
 
 *  `Table`  - `struct hashtable` A variável da hashtable, usada para salvar chaves e valores nela.
 *  `Chave`    - `char *`         A chave para ser deletada e o valor relacionada à mesma.
-*  `Comprimento` - `size_t`      O comprimento da chave, `0` irá fazer o TableC calcular.
 
 ## Valor de retorno
 

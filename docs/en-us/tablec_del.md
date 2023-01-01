@@ -7,19 +7,16 @@
 `tablec_del` is the easiest function since it requires few parameters, and it's easy to understand, this will be an example of deleting the key `furry`:
 
 ```c
-//          Table     Key    Length
-tablec_del(&tablec, "furry",   0);
+//          Table     Key
+tablec_del(&tablec, "furry");
 ```
-
-The parameter length is a super important field, that you can make `tablec_del` function faster, but if you don't know the length of the key, you can set it to `0`, and it will calculate the length of the key, but it will be slower.
 
 ## Parameters
 
 ```c
 NULL tablec_del(
   struct hashtable *tablec,
-  char *            key,
-  size_t            keyLength
+  char *            key
 );
 ```
 
@@ -27,7 +24,6 @@ NULL tablec_del(
 
 *  `Table`  - `struct hashtable` The hashtable variable, is used to save keys and values.
 *  `Key`    - `char *`           The key to delete the key and value related to it.
-*  `Length` - `size_t`           The length of the key, `0` will make TableC calculate it.
 
 ## Return value
 

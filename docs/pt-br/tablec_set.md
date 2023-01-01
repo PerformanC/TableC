@@ -9,11 +9,9 @@
 O exemplo abaixo irá salvar uma chave chamada `furry` com o valor `true`:
 
 ```c
-//          Table    Chave    Comprimento      Valor
-tablec_set(&tablec, "furry",      0,       (void *)true);
+//          Table    Chave      Valor
+tablec_set(&tablec, "furry", (void *)true);
 ```
-
-O parâmetro de comprimento é muito importante, você pode fazer a função `tablec_get` ficar mais rápida, mas se você não souber o comprimento da chave, você pode definir ele para `0`, e ele irá calcular o comprimento da chave, mas isso deixará a função mais lenta.
 
 ## Parâmetros
 
@@ -21,7 +19,6 @@ O parâmetro de comprimento é muito importante, você pode fazer a função `ta
 NULL tablec_set(
   struct hashtable *tablec,
   char *            chave,
-  size_t            comprimentoDaChave,
   void *            valor
 );
 ```
@@ -30,7 +27,6 @@ NULL tablec_set(
 
 *  `Table`       - `struct hashtable` A variável da hashtable, usada para salvar chaves e valores nela.
 *  `Chave`       - `char *`           A chave para procurar o valor relacionado a ela.
-*  `Comprimento` - `size_t`           O comprimento da chave, `0` irá fazer o TableC calcular.
 *  `Valor`       - `void *`           O valor para salvar na chave.
 
 ## Valor de retorno

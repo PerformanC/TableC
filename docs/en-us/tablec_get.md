@@ -7,23 +7,20 @@ The `tablec_get` function is used to get the value of a key using the key as a s
 `tablec_get` is an easy function to use, and your syntax is easy to understand and read, this will be an example of getting the set value of the key `furry`:
 
 ```c
-//                      Table     Key    Length
-int value = tablec_get(&tablec, "furry",   0);
+//                      Table     Key 
+int value = tablec_get(&tablec, "furry");
 
 printf("[TableC]: Value of the key \"furry\": %d\n", value);
 ```
 
 Remember that this will only return the value of the key if you have set it before, if you haven't set it, it will return `NULL`. In case you want to set it, see the [`tablec_set`](tablec_set.md) docs to see how to set it.
 
-The parameter length is a super important field, that you can make `tablec_get` function faster, but if you don't know the length of the key, you can set it to `0`, and it will calculate the length of the key, but it will be slower.
-
 ## Parameters
 
 ```c
 void *tablec_get(
   struct hashtable *tablec,
-  char *            key,
-  size_t            keyLength
+  char *            key
 );
 ```
 
@@ -31,7 +28,6 @@ void *tablec_get(
 
 *  `Table`  - `struct hashtable` The hashtable variable, is used to save keys and values.
 *  `Key`    - `char *`           The key to search the value related to it.
-*  `Length` - `size_t`           The length of the key, `0` will make TableC calculate it.
 
 ## Return value
 
