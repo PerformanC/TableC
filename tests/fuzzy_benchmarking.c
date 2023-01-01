@@ -9,16 +9,16 @@
 #include <time.h>
 #include "../tablec.h"
 
-#define MAX_EXECUTE 100
-#define ADD_TIMES 10000
+#define MAX_EXECUTE 1
+#define ADD_TIMES 1000000
 
-char *Benchmarking[] = { "TableC" };
+char *Benchmarking[] = { "TableC Closed-addressing", "TableC Open-addressing" };
 
 double firstBench() {
   clock_t startTime = clock();
 
   struct hashtable tablec;
-  tablec_init(&tablec, ADD_TIMES + 1, 1);
+  tablec_init(&tablec, ADD_TIMES, 1);
 
   char key[100];
   char *value = "Benchmarking";
@@ -26,9 +26,9 @@ double firstBench() {
   double i = 0;
   while (i <= ADD_TIMES) {
     snprintf(key, sizeof(key), "%f", i);
-    tablec_set(&tablec, key, 0, value);
-    char *abc = tablec_get(&tablec, key, 0);
-    tablec_del(&tablec, key, 0);
+    tablec_set(&tablec, key, value);
+    char *abc = tablec_get(&tablec, key);
+    tablec_del(&tablec, key);
     i++;
   }
 
@@ -47,13 +47,13 @@ int main() {
 
   executedTimes++;
 
-  if (executedTimes == MAX_EXECUTE) {
+  if (executedTimes >= MAX_EXECUTE) {
     printf(
       "BENCHMARK FOR: %s\n"
       "EXECUTION TIME FOR FIRST BENCH:\n"
-      "  MEDIUM -> %f\n"
-      " SAMPLES -> %d\n",
-      Benchmarking[0], addedTime / MAX_EXECUTE, MAX_EXECUTE);
+      "TIME TAKEN -> %f (%d times executed)\n"
+      " SAMPLES   -> %d\n",
+      Benchmarking[0], addedTime / MAX_EXECUTE, ADD_TIMES, MAX_EXECUTE);
   } else {
     goto firstBenchGoto;
   }
