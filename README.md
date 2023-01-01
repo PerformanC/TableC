@@ -1,6 +1,11 @@
+
 # TableC
 
 Advanced and portable closed-addressing hashtable implementation for C.
+
+## Branch info
+
+This branch is marked as a secondary branch, with open-addressing features (recommended for small tables). This is a mirror of the closed-addressing branch (main branch) but with open-addressing.
 
 ## Features
 
