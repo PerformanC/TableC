@@ -17,18 +17,18 @@ char *Benchmarking[] = { "TableC" };
 double firstBench() {
   clock_t startTime = clock();
 
-  struct hashtable tablec;
-  tablec_init(&tablec, ADD_TIMES + 1, 1);
+  struct tablec_ht tablec;
+  tablec_init(&tablec, ADD_TIMES + 1);
 
   char key[100];
   char *value = "Benchmarking";
 
   double i = 0;
   while (i <= ADD_TIMES) {
-    snprintf(key, sizeof(key), "%f", i);
-    tablec_set(&tablec, key, 0, value);
-    char *abc = tablec_get(&tablec, key, 0);
-    tablec_del(&tablec, key, 0);
+    sprintf(key, "%f", i);
+    tablec_set(&tablec, key, value);
+    char *abc = tablec_get(&tablec, key);
+    tablec_del(&tablec, key);
     i++;
   }
 
