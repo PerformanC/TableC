@@ -19,14 +19,14 @@ Remember that this will only return the value of the key if you have set it befo
 
 ```c
 void *tablec_get(
-  struct hashtable *tablec,
+  struct tablec_ht *tablec,
   char *            key
 );
 ```
 
 `tablec_get` has 3 parameters, used to find the value of it, take a look at them:
 
-*  `Table`  - `struct hashtable` The hashtable variable, is used to save keys and values.
+*  `Table`  - `struct tablec_ht` The hashtable variable, is used to save keys and values.
 *  `Key`    - `char *`           The key to search the value related to it.
 
 ## Return value

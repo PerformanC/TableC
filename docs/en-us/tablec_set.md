@@ -17,7 +17,7 @@ tablec_set(&tablec, "furry", (void *)true);
 
 ```c
 NULL tablec_set(
-  struct hashtable *tablec,
+  struct tablec_ht *tablec,
   char *            key
   void *            value
 );
@@ -25,7 +25,7 @@ NULL tablec_set(
 
 `tablec_set` is the function with the most parameters, having 4 parameters, take a look at them:
 
-*  `Table`  - `struct hashtable` The hashtable variable, is used to save keys and values.
+*  `Table`  - `struct tablec_ht` The hashtable variable, is used to save keys and values.
 *  `Key`    - `char *`           The key to search the value related to it.
 *  `Value`  - `void *`           The value to save to the key.
 

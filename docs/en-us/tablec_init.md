@@ -7,18 +7,17 @@ The `tablec_init` function is the most important function, which initialized the
 `tablec_init` is easy to comprehend, but you need to pay attention to the hashtable maximum capacity, which if you set more keys than the maximum capacity, would end up not working, so be careful with it.
 
 ```c
-struct hashtable tablec;
-//          Table     Capacity    Secure mode
-tablec_init(&tablec,   314159,       true);
+struct tablec_ht tablec;
+//          Table     Capacity
+tablec_init(&tablec,   314159);
 ```
 
 ## Parameters
 
 `tablec_init` has 3 parameters, used to initialize and allocate some fields, take a look at them:
 
-*  `Table`       - `struct hashtable` The hashtable variable, is used to save keys and values.
+*  `Table`       - `struct tablec_ht` The hashtable variable, is used to save keys and values.
 *  `Capacity`    - `size_t`           The maximum capacity of the hashtable.
-*  `Secure mode` - `int`              Int for secure mode, enabling or disabling it.
 
 ## Return value
 

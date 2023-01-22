@@ -19,14 +19,14 @@ Lembre-se que isso irá apenas retornar o valor da chave se você tiver definido
 
 ```c
 void *tablec_get(
-  struct hashtable *tablec,
+  struct tablec_ht *tablec,
   char *            comprementa
 );
 ```
 
 `tablec_get` tem 3 parâmetros, usados para encontrar o valor dela, olhe eles:
 
-*  `Table`       - `struct hashtable` A variável da hashtable, usada para salvar chaves e valores nela.
+*  `Table`       - `struct tablec_ht` A variável da hashtable, usada para salvar chaves e valores nela.
 *  `Chave`       - `char *`           A chave para achar o valor relacionada a ela.
 
 ## Valor de retorno

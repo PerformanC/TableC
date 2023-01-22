@@ -7,7 +7,7 @@ The `tablec_full` function is a basic function to allow you to check if the hash
 `tablec_full` usa uma função matemática básica para verificar se a hashtable está cheia ou não, e retornará um valor, que é -1 se estiver cheia, e o número de buckets que não estão cheios se não estiver cheia.
 
 ```c
-struct hashtable tablec;
+struct tablec_ht tablec;
 //           Table
 tablec_init(&tablec);
 ```
@@ -16,7 +16,7 @@ tablec_init(&tablec);
 
 `tablec_full usa apenas um parâmetros, usado para verificar se a hashtable está cheia ou não, veja-o:
 
-*  `Table`       - `struct hashtable` The hashtable variable, is used to save keys and values.
+*  `Table`       - `struct tablec_ht` The hashtable variable, is used to save keys and values.
 
 ## Valor de retorno
 

@@ -14,20 +14,20 @@ tablec_resize(&tablec,   128);
 ## Parameters
 
 ```c
-NULL tablec_resize(
-  struct hashtable *tablec,
+struct tablec_ht tablec_resize(
+  struct tablec_ht *tablec,
   size_t            newCapacity
 );
 ```
 
 `tablec_resize` has only 2 parameters, used to resize the hashtable, take a look at them:
 
-*  `Table`  - `struct hashtable` The hashtable variable, is used to save keys and values.
+*  `Table`  - `struct tablec_ht` The hashtable variable, is used to save keys and values.
 *  `Capacity` - `size_t`         The new capacity of the hashtable.
 
 ## Return value
 
-`tablec_resize` doesn't return anything, since there is nothing to return, it will just resize the hashtable.
+`tablec_resize` will return the new hashtable structure, you will only need to be sure that you have enough run for that and replace the actual one with the new one, all keys will be rehashed and the table will be freed automatically.
 
 ## What does it do internally?
 
@@ -35,7 +35,7 @@ NULL tablec_resize(
 
 ## Stability
 
-`tablec_resize` is rock stable because it's a small function and can't cause any problems, except if you don't have any more RAM. 
+`tablec_resize` is considered unstable, and it's not recommended to use it. 
 
 ## See also
 

@@ -7,18 +7,17 @@ A função `tablec_init` é usada para inicializar a hashtable, e é a função 
 `tablec_init` é fácil de se compreender, mas você precisa prestar atenção na capacidade máxima da hashtable, que se você definir mais chaves do que a capacidade máxima, irá acabar não funcionando, então tenha cuidado com isso.
 
 ```c
-struct hashtable tablec;
-//          Table     Capacidade    Modo seguro
-tablec_init(&tablec,   314159,         true);
+struct tablec_ht tablec;
+//          Table     Capacidade
+tablec_init(&tablec,   314159);
 ```
 
 ## Parâmetros
 
 `tablec_init` tem 3 parâmetros, usados para inicializar e alocar alguns campos, olhe eles neles:
 
-*  `Table`         - `struct hashtable` A variável da hashtable, usada para salvar chaves e valores nela.
+*  `Table`         - `struct tablec_ht` A variável da hashtable, usada para salvar chaves e valores nela.
 *  `Capacidade`    - `size_t`           A capacidade máxima da hashtable.
-*  `Modo seguro`   - `int`              Int para o modo seguro, ativando ou desativado ele.
 
 ## Valor de retorno
 

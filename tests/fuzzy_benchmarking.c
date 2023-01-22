@@ -6,19 +6,20 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include "../tablec.h"
 
-#define MAX_EXECUTE 1
-#define ADD_TIMES 1000000
+#define MAX_EXECUTE 100
+#define ADD_TIMES 10000
 
 char *Benchmarking[] = { "TableC Closed-addressing", "TableC Open-addressing" };
 
 double firstBench() {
   clock_t startTime = clock();
 
-  struct hashtable tablec;
-  tablec_init(&tablec, ADD_TIMES, 1);
+  struct tablec_ht tablec;
+  tablec_init(&tablec, ADD_TIMES);
 
   char key[100];
   char *value = "Benchmarking";
@@ -28,11 +29,10 @@ double firstBench() {
     snprintf(key, sizeof(key), "%f", i);
     tablec_set(&tablec, key, value);
     char *abc = tablec_get(&tablec, key);
-    tablec_del(&tablec, key);
+   // printf("%s\n", abc);
+    // tablec_del(&tablec, key);
     i++;
   }
-
-  tablec_cleanup(&tablec);
 
   return ((double)(clock() - startTime) / CLOCKS_PER_SEC);
 }
@@ -57,6 +57,10 @@ int main() {
   } else {
     goto firstBenchGoto;
   }
+
+  executedTimes = 0, addedTime = 0;
+
+  goto firstBenchGoto;
 
   return 0;
 }

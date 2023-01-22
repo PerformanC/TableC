@@ -15,14 +15,14 @@ tablec_del(&tablec, "furry");
 
 ```c
 NULL tablec_del(
-  struct hashtable *tablec,
+  struct tablec_ht *tablec,
   char *            chave
 );
 ```
 
 `tablec_del` possúi 3 parâmetros, usados para deletar tanto a chave como o valor relacionado à chave, olhe eles:
 
-*  `Table`  - `struct hashtable` A variável da hashtable, usada para salvar chaves e valores nela.
+*  `Table`  - `struct tablec_ht` A variável da hashtable, usada para salvar chaves e valores nela.
 *  `Chave`    - `char *`         A chave para ser deletada e o valor relacionada à mesma.
 
 ## Valor de retorno
