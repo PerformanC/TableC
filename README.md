@@ -24,9 +24,9 @@ GNOME Alpine Linux v3.17 x64 (i5-2520M CPU, 3.200GHz x 2 cores, 4 threads with 8
 
 | Samples | Repetitions (stabilization) | Time per sample |
 | ------- | --------------------------- | --------------- |
-| 1000    | 10000                       | 0.008209s       |
-| 10000   | 1000                        | 0.000755s       |
-| 100000  | 100                         | 0.093375s       |
+| 1000    | 10000                       | 0.000718s       |
+| 10000   | 1000                        | 0.008083s       |
+| 100000  | 100                         | 0.095981s       |
 
 Those results shouldn't be taken as a reference, but they are not manipulated. The purpose of this benchmark is to see the performance of the library, allowing the user to see how it performs.
 

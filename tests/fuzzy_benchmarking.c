@@ -13,7 +13,7 @@
 #define MAX_EXECUTE 100
 #define ADD_TIMES 10000
 
-char *Benchmarking[] = { "TableC Closed-addressing", "TableC Open-addressing" };
+char *Benchmarking[] = { "TableC Closed-addressing" };
 
 double firstBench() {
   clock_t startTime = clock();
@@ -26,11 +26,10 @@ double firstBench() {
 
   double i = 0;
   while (i <= ADD_TIMES) {
-    snprintf(key, sizeof(key), "%f", i);
+    sprintf(key, "%f", i);
     tablec_set(&tablec, key, value);
     char *abc = tablec_get(&tablec, key);
-   // printf("%s\n", abc);
-    // tablec_del(&tablec, key);
+    tablec_del(&tablec, key);
     i++;
   }
 
