@@ -3,14 +3,13 @@
 
 #include "tablec.h"
 
-void tablec_init(struct hashtable *tablec, size_t max_capacity, int secure_mode) {
-  tablec->buckets = malloc(sizeof(struct hashtable_buckets) * max_capacity);
+void tablec_init(struct tablec_ht *tablec, size_t max_capacity) {
+  tablec->buckets = malloc(sizeof(struct tablec_buckets) * max_capacity);
   tablec->capacity = max_capacity - 1;
   tablec->length = 0;
-  tablec->secure_mode = secure_mode;
 
   while (max_capacity-- != 0) {
-    tablec->buckets[max_capacity].nodes = malloc(sizeof(struct hashtable_buckets_array));
+    tablec->buckets[max_capacity].nodes = malloc(sizeof(struct tablec_buckets_array));
     tablec->buckets[max_capacity].nodes->key = NULL;
     tablec->buckets[max_capacity].nodes->value = NULL;
     tablec->buckets[max_capacity].length = 0;
@@ -18,13 +17,13 @@ void tablec_init(struct hashtable *tablec, size_t max_capacity, int secure_mode)
   }
 }
 
-void tablec_resize(struct hashtable *tablec, size_t new_max_capacity) {
-  /* TODO: Add rehashing when resizing hashtable because it will cause __tablec_hash to not find the keys if not. */
+void tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity) {
+  /* Tablec_resize is NOT done in this branch, and won't be done if not requested. If you want tablec_resize working on this branch, please open an issue. */
   tablec->capacity = new_max_capacity - 1;
-  tablec->buckets = realloc(tablec->buckets, sizeof(struct hashtable_buckets) * new_max_capacity);
+  tablec->buckets = realloc(tablec->buckets, sizeof(struct tablec_buckets) * new_max_capacity);
 }
 
-size_t __tablec_hash(struct hashtable *tablec, char *key, size_t *size) {
+size_t __tablec_hash(struct tablec_ht *tablec, char *key, size_t *size) {
   size_t hash = 0, i = 0;
 
   while (key[i] != '\0') hash = hash * 37 + (key[i++] & 255);
@@ -34,7 +33,7 @@ size_t __tablec_hash(struct hashtable *tablec, char *key, size_t *size) {
   return hash % tablec->capacity;
 }
 
-void tablec_set(struct hashtable *tablec, char *key, void *value) {
+void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
   size_t keyLength;
   size_t hash = __tablec_hash(tablec, key, &keyLength);
 
@@ -59,7 +58,7 @@ void tablec_set(struct hashtable *tablec, char *key, void *value) {
       return;
     }
   } else {
-    struct hashtable_buckets_array *nodes = tablec->buckets[hash].nodes;
+    struct tablec_buckets_array *nodes = tablec->buckets[hash].nodes;
 
     do {
       if (nodes->key == NULL) {
@@ -77,7 +76,7 @@ void tablec_set(struct hashtable *tablec, char *key, void *value) {
   }
 }
 
-void tablec_del(struct hashtable *tablec, char *key) {
+void tablec_del(struct tablec_ht *tablec, char *key) {
   size_t keyLength;
   size_t hash = __tablec_hash(tablec, key, &keyLength);
 
@@ -92,7 +91,6 @@ void tablec_del(struct hashtable *tablec, char *key) {
   } else {
     do {
       if (tablec->buckets[hash].nodes->key != NULL && memcmp(tablec->buckets[hash].nodes->key, key, keyLength) == 0) {
-        printf("Found key\n");
         tablec->buckets[hash].nodes->key = NULL;
         tablec->buckets[hash].nodes->value = NULL;
         break;
@@ -106,11 +104,11 @@ void tablec_del(struct hashtable *tablec, char *key) {
   }
 }
 
-void *tablec_get(struct hashtable *tablec, char *key) {
+void *tablec_get(struct tablec_ht *tablec, char *key) {
   size_t keyLength;
   size_t hash = __tablec_hash(tablec, key, &keyLength);
 
-  struct hashtable_buckets_array *nodes = tablec->buckets[hash].nodes;
+  struct tablec_buckets_array *nodes = tablec->buckets[hash].nodes;
 
   if (nodes->key != NULL && memcmp(tablec->buckets[hash].nodes->key, key, keyLength) == 0) {
     return tablec->buckets[hash].nodes->value;
@@ -119,7 +117,6 @@ void *tablec_get(struct hashtable *tablec, char *key) {
   nodes = tablec->buckets[hash].nodes->next;
   
   while (nodes != NULL) {
-    printf("abc\n");
     if (nodes->key != NULL && memcmp(nodes->key, key, keyLength) == 0) {
       return nodes->value;
     }
@@ -129,11 +126,11 @@ void *tablec_get(struct hashtable *tablec, char *key) {
   return NULL;
 }
 
-int tablec_full(struct hashtable *tablec) {
+int tablec_full(struct tablec_ht *tablec) {
   return tablec->capacity == tablec->length - 1 ? -1 : tablec->capacity - tablec->length - 1;
 }
 
-void tablec_cleanup(struct hashtable *tablec) {
+void tablec_cleanup(struct tablec_ht *tablec) {
   free(tablec->buckets);
   tablec = NULL;
 }
