@@ -116,18 +116,18 @@ TEST see_empty_slots_after_deleting(void) {
 }
 
 TEST test_resize(void) {
+  char keyRandom[1000];
+  size_t i = 0;
+
   struct tablec_ht tablec;
   tablec_init(&tablec, 1000);
   ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)1000);
 
-  char keyRandom[1000];
-  size_t i = 0;
-  while(i < 300) {
+  while(i++ < 300) {
     tablec = tablec_resize(&tablec, tablec.capacity + 1);
     sprintf(keyRandom, "%d", rand() % 1000);
     tablec_set(&tablec, keyRandom, value);
     ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, keyRandom), value), 0);
-    i++;
   }
 
   tablec_cleanup(&tablec);
@@ -137,18 +137,18 @@ TEST test_resize(void) {
   PASSm("TableC was able to resize the hashtable.");
 }
 
-TEST mini_fuzzy_testing(void) {
+TEST mini_fuzz_testing(void) {
+  char keyRandom[1000];
+  size_t i = 0;
+
   struct tablec_ht tablec;
   tablec_init(&tablec, 1000);
   ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)1000);
 
-  char keyRandom[1000];
-  size_t i = 0;
-  while(i < 1000) {
+  while(i++ < 1000) {
     sprintf(keyRandom, "%d", rand() % 1000);
     tablec_set(&tablec, keyRandom, value);
     ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, keyRandom), value), 0);
-    i++;
   }
 
   tablec_cleanup(&tablec);
@@ -164,7 +164,7 @@ SUITE(special_cases) {
   RUN_TEST(deleting_and_reading_non_exist_key);
   RUN_TEST(see_empty_slots_after_deleting);
   RUN_TEST(test_resize);
-  RUN_TEST(mini_fuzzy_testing);
+  RUN_TEST(mini_fuzz_testing);
 }
 
 GREATEST_MAIN_DEFS();

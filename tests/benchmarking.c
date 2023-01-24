@@ -15,20 +15,20 @@
 
 char *Benchmarking[] = { "TableC Closed-addressing" };
 
-double firstBench() {
+double firstBench(void) {
   clock_t startTime = clock();
+
+  char key[100];
+  char *value = "Benchmarking";
+  double i = 0;
 
   struct tablec_ht tablec;
   tablec_init(&tablec, ADD_TIMES);
 
-  char key[100];
-  char *value = "Benchmarking";
-
-  double i = 0;
   while (i <= ADD_TIMES) {
     sprintf(key, "%f", i);
     tablec_set(&tablec, key, value);
-    char *abc = tablec_get(&tablec, key);
+    tablec_get(&tablec, key);
     tablec_del(&tablec, key);
     i++;
   }
@@ -36,7 +36,7 @@ double firstBench() {
   return ((double)(clock() - startTime) / CLOCKS_PER_SEC);
 }
 
-int main() {
+int main(void) {
   double executedTimes = 0;
   double addedTime = 0;
 
