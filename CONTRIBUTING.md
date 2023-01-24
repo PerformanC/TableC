@@ -2,19 +2,17 @@
 
 ## Before opening a pull request
 
-In PerformanC projects, we are always trying to make the code consistent, principally the code syntax, for this, we have some guidelines when you are contributing to The TableC Project, here is a list of some of the guidelines, but remember to make a good and clean code:
+In all PerformanC projects, we make sure that the code is clean and consistent, to be sure of that we have some guidelines when you are contributing to The TableC Project, here is a list of some of the guidelines, but remember to make a good and clean code, and according to our indentation:
 
-* Be sure that the version that you are going to commit the changes to is the latest, if not, conflicts may cause your PR to be not accepted.
+* Make sure that you are committing to the latest version.
 
-* You need to use the same syntax and style from the test of the project, in any questions, follow to the next section.
+* You must use the same indentation as the rest of the project, follow the next section for information.
 
-* Make sure to run Fuzzy Benchmarking testing and Special Cases testing before opening a pull request, those will be as well asked in the PR template.
+* (OPTIONAL) Update the documentation if you change a function parameter.
 
-* This one is optional, but when editing a parameter of a function, or even changing the way a function works, make sure to update in the docs.
+## Code indentation
 
-## Code syntax and style
-
-TableC uses its own syntax, which uses a 2-space indentation, and the code MUST have compatibility of at least C99+, breaking support of newer versions of C is not allowed. 
+PerformanC uses its own indentation, which uses a 2-space indentation, and the code must be C89. 
 
 The example below is an example of using TableC's syntax:
 
