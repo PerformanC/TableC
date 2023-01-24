@@ -116,31 +116,9 @@ TEST see_empty_slots_after_deleting(void) {
 }
 
 TEST test_resize(void) {
-  // struct tablec_ht tablec;
-  // tablec_init(&tablec, 16);
-  // ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)16 + 1);
-
-  // tablec_set(&tablec, key, value);
-  // ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, key), value), 0);
-
-  // tablec_set(&tablec, otherKey, value);
-  // ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, otherKey), value), 0);
-
-  // tablec_set(&tablec, "wild", value);
-  // ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, "wild"), value), 0);
-
-  // tablec_resize(&tablec, 100);
-  // ASSERT_EQm("TableC was not able to resize the hashtable.", tablec.capacity, (size_t)100 + 1);
-
-  // ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, key), value), 0);
-  // ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, otherKey), value), 0);
-  // ASSERT_EQm("TableC was not able to set a key and a value.", strcmp(tablec_get(&tablec, "wild"), value), 0);
-
-  // tablec_cleanup(&tablec);
-
   struct tablec_ht tablec;
-  tablec_init(&tablec, 100);
-  ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)100);
+  tablec_init(&tablec, 1000);
+  ASSERT_EQm("TableC was not able to initialize.", tablec.capacity, (size_t)1000);
 
   char keyRandom[1000];
   size_t i = 0;
