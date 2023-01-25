@@ -27,7 +27,7 @@ void tablec_init(struct tablec_ht *tablec, size_t max_capacity) {
   while (max_capacity--) {
     tablec->buckets[max_capacity].capacity = 1;
     tablec->buckets[max_capacity].length = 0;
-    tablec->buckets[max_capacity].array = malloc(sizeof(struct tablec_buckets_array));
+    tablec->buckets[max_capacity].array = calloc(sizeof(struct tablec_buckets_array), 1);
     tablec->buckets[max_capacity].array[0].key = NULL;
     tablec->buckets[max_capacity].array[0].value = NULL;
   }
@@ -41,27 +41,33 @@ size_t __tablec_hash(struct tablec_ht *tablec, char *key) {
   return hash % tablec->capacity;
 }
 
-struct tablec_ht tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity) {
-  struct tablec_ht newHashtable;
+void tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity) {
+  size_t i = 0, i2 = tablec->capacity;  
+
+  struct tablec_ht newHashtable = { 0 };
   tablec_init(&newHashtable, new_max_capacity);
 
-  if (tablec->length != 0) while (new_max_capacity--) {
-    if (tablec->buckets[new_max_capacity].length == 0) continue;
+  if (tablec->length != 0) while (i2--) {
+    if (tablec->buckets[i2].length == 0) continue;
 
-    if (tablec->buckets[new_max_capacity].length == 1) tablec_set(&newHashtable, tablec->buckets[new_max_capacity].array[0].key, tablec->buckets[new_max_capacity].array[0].value);
-    else {
-      size_t i = tablec->buckets[new_max_capacity].capacity;
+    if (tablec->buckets[i2].length == 1) {
+      tablec_set(&newHashtable, tablec->buckets[i2].array[0].key, tablec->buckets[i2].array[0].value);
+      
+      continue;
+    }
+    
+    i = tablec->buckets[i2].capacity - 1;
 
-      while (i--) {
-        if (tablec->buckets[new_max_capacity].array[i].key == NULL) continue;
+    while (i--) {
+      if (!tablec->buckets[i2].array[i].key) continue;
 
-        tablec_set(&newHashtable, tablec->buckets[new_max_capacity].array[i].key, tablec->buckets[new_max_capacity].array[i].value);
-      }
+      tablec_set(&newHashtable, tablec->buckets[i2].array[i].key, tablec->buckets[i2].array[i].value);
     }
   }
 
-  free(tablec->buckets);
-  return newHashtable;
+  tablec_cleanup(tablec);
+  *tablec = newHashtable;
+  return;
 }
 
 void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
@@ -101,6 +107,11 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
 
     tablec->buckets[hash].capacity = (tablec->buckets[hash].capacity * 2);
     tablec->buckets[hash].array = realloc(tablec->buckets[hash].array, sizeof(struct tablec_buckets_array) * (tablec->buckets[hash].capacity * 2));
+
+    if (tablec->buckets[hash].array == NULL) {
+      printf("Error: realloc failed.\n");
+      exit(1);
+    }
 
     tablec->buckets[hash].array[tablec->buckets[hash].capacity - 1].key = key;
     tablec->buckets[hash].array[tablec->buckets[hash].capacity - 1].value = value;
@@ -152,8 +163,8 @@ void tablec_del(struct tablec_ht *tablec, char *key) {
   }
 }
 
-int tablec_full(struct tablec_ht *tablec) {
-  return tablec->capacity == tablec->length ? -1 : tablec->capacity - tablec->length;
+long tablec_full(struct tablec_ht *tablec) {
+  return tablec->capacity == tablec->length ? (long)-1 : (long)tablec->capacity - (long)tablec->length;
 }
 
 void tablec_cleanup(struct tablec_ht *tablec) {
