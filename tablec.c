@@ -27,7 +27,7 @@ void tablec_init(struct tablec_ht *tablec, size_t max_capacity) {
   while (max_capacity--) {
     tablec->buckets[max_capacity].capacity = 1;
     tablec->buckets[max_capacity].length = 0;
-    tablec->buckets[max_capacity].array = calloc(sizeof(struct tablec_buckets_array), 1);
+    tablec->buckets[max_capacity].array = malloc(sizeof(struct tablec_buckets_array));
     tablec->buckets[max_capacity].array[0].key = NULL;
     tablec->buckets[max_capacity].array[0].value = NULL;
   }
@@ -92,32 +92,41 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
     }
   } else {
     size_t i = tablec->buckets[hash].capacity;
+    struct tablec_buckets_array *newArray = NULL;
 
     while (i--) {
-      if (tablec->buckets[hash].array[i].key == NULL) {
-        tablec->buckets[hash].array[i].key = key;
-        tablec->buckets[hash].array[i].value = value;
+      if (tablec->buckets[hash].array[i].key) continue;
 
-        tablec->buckets[hash].length++;
-        tablec->length++;
+      tablec->buckets[hash].array[i].key = key;
+      tablec->buckets[hash].array[i].value = value;
 
-        return;
+      tablec->buckets[hash].length++;
+      tablec->length++;
+
+      return;
+    }
+
+    i = tablec->buckets[hash].capacity;
+
+    newArray = calloc(sizeof(struct tablec_buckets_array) * (tablec->buckets[hash].capacity * 2), 1);
+    while (i--) {
+      if (!tablec->buckets[hash].array[i].key) {
+        newArray[i].key = NULL;
+        newArray[i].value = NULL;
+
+        continue;
       }
+  
+      newArray[i].key = tablec->buckets[hash].array[i].key;
+      newArray[i].value = tablec->buckets[hash].array[i].value;
     }
 
-    tablec->buckets[hash].capacity = (tablec->buckets[hash].capacity * 2);
-    tablec->buckets[hash].array = realloc(tablec->buckets[hash].array, sizeof(struct tablec_buckets_array) * (tablec->buckets[hash].capacity * 2));
+    free(tablec->buckets[hash].array);
 
-    if (tablec->buckets[hash].array == NULL) {
-      printf("Error: realloc failed.\n");
-      exit(1);
-    }
+    tablec->buckets[hash].array = newArray;
+    tablec->buckets[hash].capacity *= 2;
 
-    tablec->buckets[hash].array[tablec->buckets[hash].capacity - 1].key = key;
-    tablec->buckets[hash].array[tablec->buckets[hash].capacity - 1].value = value;
-
-    tablec->buckets[hash].length++;
-    tablec->length++;
+    tablec_set(tablec, key, value);
 
     return;
   }
