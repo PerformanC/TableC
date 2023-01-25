@@ -14,7 +14,7 @@ tablec_resize(&tablec,   128);
 ## Parameters
 
 ```c
-struct tablec_ht tablec_resize(
+NULL tablec_resize(
   struct tablec_ht *tablec,
   size_t            newCapacity
 );
@@ -27,7 +27,7 @@ struct tablec_ht tablec_resize(
 
 ## Return value
 
-`tablec_resize` will return the new hashtable structure, you will only need to be sure that you have enough run for that and replace the actual one with the new one, all keys will be rehashed and the table will be freed automatically.
+`tablec_resize` will update the hashtable with new one,you will only need to be sure that you have enough run for that and replace the actual one with the new one, all keys will be rehashed and the table will be freed automatically.
 
 ## What does it do internally?
 

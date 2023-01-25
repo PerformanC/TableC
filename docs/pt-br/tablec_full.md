@@ -14,6 +14,12 @@ tablec_init(&tablec);
 
 ## Parâmetros
 
+```c
+long tablec_full(
+  struct tablec_ht *tablec
+);
+```
+
 `tablec_full usa apenas um parâmetros, usado para verificar se a hashtable está cheia ou não, veja-o:
 
 *  `Table`       - `struct tablec_ht` The hashtable variable, is used to save keys and values.

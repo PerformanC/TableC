@@ -25,20 +25,18 @@ double firstBench(void) {
   struct tablec_ht tablec;
   tablec_init(&tablec, ADD_TIMES);
 
-  while (i <= ADD_TIMES) {
+  while (i++ <= ADD_TIMES) {
     sprintf(key, "%f", i);
     tablec_set(&tablec, key, value);
     tablec_get(&tablec, key);
     tablec_del(&tablec, key);
-    i++;
   }
 
   return ((double)(clock() - startTime) / CLOCKS_PER_SEC);
 }
 
 int main(void) {
-  double executedTimes = 0;
-  double addedTime = 0;
+  double executedTimes = 0, addedTime = 0;
 
   firstBenchGoto:
 
