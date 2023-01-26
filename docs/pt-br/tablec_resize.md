@@ -35,7 +35,7 @@ NULL tablec_resize(
 
 ## Estabilidade
 
-`tablec_resize` é considerado instável, e seu uso não é recomendado.
+`tablec_resize` é considerado semi-estável, já que ainda pode se encontrar bugs, mas será raro.
 
 ## Veja também
 
