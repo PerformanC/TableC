@@ -1,85 +1,69 @@
 # TableC
 
-An ultra-light portable hashtable implementation for C.
+Advanced and portable closed-addressing hashtable implementation for C.
 
 ## Features
 
-On TableC, we focused on making a light, still portable and fast library, with a simple API, but we provided the necessary functions to have a hashtable, those features are:
-
+- [x] Simple & low-level API
+- [x] Expandable hashtable
 - [x] Set keys and values
 - [x] Get values based on the key
 - [x] Remove keys and values
 
 ## Performance
 
-TableC has a high performance, but it was focused on portability and stability, so for now, there aren't a lot of optimizations, but we are working on it. For now, we are making sure it's stable and portable.
+TableC has high efficiency and performance, allowing it to be used on embedded systems, as well as on high-end devices like servers and desktops.
+
+It has an incredible speed, especially when in good conditions for it, such as deleting a key after using it.
+
+And all that for a new library, that was not fully optimized yet, but it's getting there.
+
+We made a benchmark using one of our benchmarking codes, and the results are:
+
+GNOME Alpine Linux v3.17 x64 (i5-2520M CPU, 3.200GHz x 2 cores, 4 threads with 8GB RAM ddr4)
+
+| Samples | Repetitions (stabilization) | Time per sample |
+| ------- | --------------------------- | --------------- |
+| 1000    | 10000                       | 0.000718s       |
+| 10000   | 1000                        | 0.008083s       |
+| 100000  | 100                         | 0.095981s       |
+
+Those results shouldn't be taken as a reference, but they are not manipulated. The purpose of this benchmark is to see the performance of the library, allowing the user to see how it performs.
 
 ## Usage
 
-TableC comes with a simple API, but it's powerful, take a look at the example below of using TableC:
+For the usage of the TableC library, you can see either in the [docs folder](docs/en-us/about.md), or in the [tests folder](tests/special_cases.c), where you can see how to use it, and how it works.
 
-```c
-/* First we need to include the tablec.h header file, so we can use TableC's functions. */
-#include "tablec.h"
+The docs folder is a way to see the usage of the library, and how each function works, and the tests folder is the code that tests TableC before committing changes to the TableC repository.
 
-/* Here we are initializing the hastable, so we can use the buckets. */
-struct hashtable *tablec;
-tablec_init(&tablec, 1);
+## Documentation
 
-/* Here we are setting a key and a value, so we can get it later. */
-tablec_set(&tablec, "key", "value");
-
-/* Here we are getting the value based on the key. */
-char *value = tablec_get(&tablec, "key");
-
-printf("Found: %s\n", value);
-
-/* Since we are going to need more space, we are expanding the hashtable, so we can add more keys into it. */
-tablec_expand(&tablec, 2);
-
-/* Now we have more space, so we can set more keys into it. */
-tablec_set(&tablec, "key2", "value2");
-
-char *value2 = tablec_get(&tablec, "key2");
-
-printf("Found: %s\n", value2);
-
-/* Now we are removing the key2, so we can have one more empty space into the bucket. */
-tablec_remove(&tablec, "key2");
-
-/* Now we can set another key into the hashtable. */
-tablec_set(&tablec, "key3", "value3");
-
-char *value3 = tablec_get(&tablec, "key3");
-
-printf("Found: %s\n", value3);
-
-/* Now we are going to deallocate the tablec, so no memory leaks happen. */
-tablec_cleanup(&tablec);
-```
+The documentation can be seen in the [docs folder], with handwriting documentation specific to each function, with detailed and complete explanations of all (public) functions.
 
 ## Why TableC?
 
-We are making TableC because we need a simple, portable and still lightweight hashtable implementation for C, so we decided to make it, and we are going to keep it updated, so it can be used in more projects.
+One of the best reasons to use TableC is because of its high portability, allowing it to be compiled on any system, and because of its high performance, which allows it to be used on low-end and embedded systems.
 
-TableC is fast, portable, simple and with no known bugs, till now.
+Another reason is that it is simple, complete, and has good documentation.
 
 ## Contributing
 
-We are open to contributions, so if you want to contribute to TableC, you can do it by opening a pull request, or by opening an issue, so we can discuss if we should implement a new feature, or change some feature.
+Contributions are always welcome, and we are always open to new ideas, and new ways to improve the library, although not limited to the TableC files, but also the documentation.
 
-## License
-
-TableC is licensed under the MIT License, so you can use it in any project, even commercial ones, what so ever, TableC can't be used for AI training of any kind.
+There are some guidelines that you should follow before contributing, and they are in the [contributing file](CONTRIBUTING.md), and if you follow them, you will be able to contribute to the TableC project.
 
 ## Support
 
-If you want to talk about anything related to a PerformanC's project, or anything, especially programming, you can join our [Discord server](https://discord.gg/uPveNfTuCJ), and talk with us, we are always open to talk about anything, and we will help you with any issues and questions.
+TableC is a PerformanC project, and because of that, any type of question can be asked on PerformanC's [Discord server](https://discord.gg/uPveNfTuCJ), and feel free to join our Discord to talk with us.
+
+## License
+
+TableC uses a customized license created by PerformanC, which has the same rights as a MIT license, except it includes a clause stating that you cannot use this software (library) to train a neural network.
 
 ## Projects using TableC
 
-Because TableC is a new library, it is not used in a lot of projects, but feel free to use TableC in one of your projects and make a PR to add it here.
+Since TableC is a new library, it is not a popular library, and it is not used in many projects, but in case you have an Open Source project using TableC, feel free to make a pull request adding it to this list.
 
-[Coglink](https://github.com/PerformanC/Coglink) by PerformanC
+[Experimental] [Coglink](https://github.com/PerformanC/Coglink) by PerformanC (TableC team)
 
 * Feito com :heart: por um Brasileiro! 🇧🇷
