@@ -10,9 +10,9 @@ Write here detailed information about the changes you made
 
 ## Checkmarks
 
-[ ] - I have tested TableC with my changes and all tests pass.
-[ ] - I have used the same indentation as the rest of the project.
-[ ] - I have updated the documentation of the project. (OPTIONAL)
+- [ ] I have tested TableC with my changes and all tests pass.
+- [ ] I have used the same indentation as the rest of the project.
+- [ ] I have updated the documentation of the project. (OPTIONAL)
 
 ## Additional information
 
