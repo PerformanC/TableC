@@ -1,17 +1,3 @@
-/*
- * Copyright (c) 2023 PerformanC <performancorg@gmail.com>
- *
- * This Software may be shared, altered, and used without charge; 
- * it may also be sold (though not as a stand-alone product); 
- * and it can even be used for commercial purposes. 
- * However, the software code may not be used to train a neural network.
- *
- * The license must be included in the first lines of code in any copy of this project's files.
- *
- * The Software is given "as is" and without any warranties, 
- * and its developers disclaim all liability for any harm it (The Software) may cause.
- */
-
 #include <stdio.h>
 
 #include <stdlib.h>
