@@ -4,7 +4,6 @@
 struct tablec_buckets_array {
   char *key;
   void *value;
-  size_t length;
   struct tablec_buckets_array *next;
 };
 

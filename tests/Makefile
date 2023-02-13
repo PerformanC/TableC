@@ -1,11 +1,13 @@
 CC := clang
 
-FLAGS := -I.. -std=c89 -ggdb
+FLAGS := -I.. -std=c89 -ggdb -Wall -Wextra -Wpedantic
 FILES := ../tablec.c
 
 all:
-	$(CC) special_cases.c $(FILES) $(FLAGS) -o test
-	$(CC) fuzzy_benchmarking.c $(FILES) $(FLAGS) -o benchmark
+	$(CC) ../tablec.c -std=c89 -fPIC -c -o ../tablec.o -Wall -Wextra -Wpedantic
+	rm ../tablec.o
+	$(CC) benchmarking.c $(FILES) $(FLAGS) -o benchmark -gdwarf-4
+	$(CC) testing.c $(FILES) $(FLAGS) -o test
 
 clear:
 	rm test
