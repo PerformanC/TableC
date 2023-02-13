@@ -26,7 +26,7 @@ double firstBench(void) {
   tablec_init(&tablec, ADD_TIMES);
 
   while (i++ <= ADD_TIMES) {
-    sprintf(key, "%f", i);
+    sprintf(key, "%d", rand() % 1000);
     tablec_set(&tablec, key, value);
     tablec_get(&tablec, key);
     tablec_del(&tablec, key);
@@ -57,7 +57,7 @@ int main(void) {
 
   executedTimes = 0, addedTime = 0;
 
-  goto firstBenchGoto;
+  /* goto firstBenchGoto; */
 
   return 0;
 }

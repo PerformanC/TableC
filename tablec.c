@@ -105,10 +105,12 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
 
     free(tablec->buckets[hash].array);
 
+    newArray[tablec->buckets[hash].length].key = key;
+    newArray[tablec->buckets[hash].length].value = value;
+
     tablec->buckets[hash].array = newArray;
     tablec->buckets[hash].capacity *= 2;
-
-    tablec_set(tablec, key, value);
+    tablec->buckets[hash].length++;
 
     return;
   }
