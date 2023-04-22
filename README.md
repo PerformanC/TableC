@@ -63,7 +63,9 @@ TableC is a PerformanC project, and because of that, any type of question can be
 
 ## License
 
-TableC uses a customized license created by PerformanC, which has the same rights as a MIT license, except it includes a clause stating that you cannot use this software (library) to train a neural network.
+TableC is licensed under PerformanC's License, which is a modified version of the MIT License, focusing on the protection of the source code and the rights of the PerformanC team over the source code.
+
+If you wish to use some part of the source code, you must contact us first, and if we agree, you can use the source code, but you must give us credit for the source code you use.
 
 ## Projects using TableC
 

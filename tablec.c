@@ -48,11 +48,11 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
 
       return;
     }
+
     hash++;
   }
 
   tablec_resize(tablec, tablec->capacity * 2);
-
   tablec_set(tablec, key, value);
 
   return;
@@ -70,6 +70,7 @@ void tablec_del(struct tablec_ht *tablec, char *key) {
 
       return;
     }
+
     hash++;
   }
 }
@@ -78,7 +79,9 @@ void *tablec_get(struct tablec_ht *tablec, char *key) {
   size_t hash = __tablec_hash(tablec, key);
 
   while (hash != tablec->capacity) {
-    if (tablec->buckets[hash].key && strcmp(tablec->buckets[hash].key, key) == 0) return tablec->buckets[hash].value;
+    if (tablec->buckets[hash].key && strcmp(tablec->buckets[hash].key, key) == 0)
+      return tablec->buckets[hash].value;
+
     hash++;
   }
 
