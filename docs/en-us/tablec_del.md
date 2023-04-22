@@ -27,18 +27,15 @@ NULL tablec_del(
 
 ## Return value
 
-`tablec_del` doesn't return anything, no successful or failed return, it will just delete the key and value related to it. and if it doesn't find a related key, it will just ignore it since this is something you should do, and this is a low-level API.
+`tablec_del` doesn't return any value, due to being a function with type `void`.
 
 ## What does it do internally?
 
-`tablec_del` is a difficult function to explain what does it do, because of that, it will be explained differently, in a resumed way:
-
-First, it will see what's the capacity of the bucket, and with it, it will define if it should use the `do {} while();` loop or not, since it might be required for searching for slots, and after finding the slot, it will add to the list of empty slots the slot that it found, and it will set the key and value to `NULL`.
+`tablec_del` will first hash the key and then verify the length of the array that the key is in, in case it's 0, it will ignore and `return;`, in case it's 1 or more, it will iterate through the array, `strcmp`ing the keys, and if it finds the key, it will delete it, and if it doesn't find the key, it will ignore and `return;`.
 
 ## Stability
 
-
-`tablec_del` is not stable, because of being complex and having many if statements, which makes it hard to debug, but even with that, it's safe to use it.
+`tablec_del` is stable and can be used in a production environment flawlessly.
 
 ## See also
 

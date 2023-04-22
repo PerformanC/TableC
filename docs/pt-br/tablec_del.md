@@ -27,17 +27,15 @@ NULL tablec_del(
 
 ## Valor de retorno
 
-`tablec_del` não retorna nada, nem sucesso ou falha, ele irá apenas deletar a chave e o valor relacionado à mesma, e se ele não encontrar uma chave relacionada, ele irá ignorar, já que isso é algo que você deveria fazer, e isso é uma API de baixo nível.
+`tablec_del` não retorna nenhum valor, devido a ser uma função de tipo `void`.
 
 ## O que ele faz internamente?
 
-`tablec_del` é uma função difícil de explicar o seu funcionamento, por isso, o mesmo será explicado de forma resumida:
-
-Primeiramente, ele irá ver qual é a capacidade do bucket, e com isso, ele irá definir se ele deve usar o `do {} while();` loop ou não, já que pode ser necessário para procurar por slots, e depois de encontrar o slot, ele irá adicionar à lista de slots vazios o slot que ele encontrou, e ele irá definir a chave e o valor para `NULL`.
+`tablec_del` vai primeiro fazer o hash da chave, e depois verificar o tamanho do array que a chave está, caso o tamanho seja 0, ele irá ignorar e `return;`, caso o tamanho seja 1 ou mais, ele irá iterar pelo array, `strcmp`ando as chaves, e se ele encontrar a chave, ele irá deletar a mesma, e se ele não encontrar a chave, ele irá ignorar e `return;`.
 
 ## Estabilidade
 
-`tablec_del` não é uma função estável, por ser complexa e ter muitos if statements, o que dificulta a depuração, mas mesmo assim, é seguro de se usar.
+`tablec_del` é estável e pode ser usada em um ambiente de produção sem problemas.
 
 ## Veja também
 

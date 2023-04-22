@@ -27,15 +27,15 @@ NULL tablec_resize(
 
 ## Valor de retorno
 
-`tablec_resize` vai atualizar a hashtable com a nova, você só precisa ter certeza de que tem RAM suficiente para isso e substituir a atual com a nova, todas as chaves serão rehashadas e a tabela será liberada automaticamente.
+`tablec_resize` não retorna nenhum valor, devido a ser uma função com tipo `void`.
 
 ## O que ele faz internamente?
 
-`tablec_resize` irá simplesmente `realloc` a hashtable para a nova capacidade, e também irá definir a nova capacidade para a hashtable.
+`tablec_resize` irá primeiro criar uma nova hashtable com a nova capacidade, e depois irá iterar pela hashtable antiga, e copiar as chaves e valores para a nova hashtable, e depois irá liberar a hashtable antiga, e definir a nova hashtable para a hashtable antiga.
 
 ## Estabilidade
 
-`tablec_resize` é considerado semi-estável, já que ainda pode se encontrar bugs, mas será raro.
+`tablec_resize` é estável e pode ser usada em um ambiente de produção sem problemas, mas não é recomendado usá-lo, já que dependendo do tamanho da hashtable, pode levar um tempo para redimensioná-la.
 
 ## Veja também
 

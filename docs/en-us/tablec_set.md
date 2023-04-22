@@ -31,17 +31,15 @@ NULL tablec_set(
 
 ## Return value
 
-`tablec_set` doesn't actually return anything, but if the hashtable is full, it will print to the console, enabling `secure mode` will make TableC handle it for you, and it will expand the hashtable, as you would manually do, but internally.
+`tablec_set` doesn't return any value, due to being a function with type `void`.
 
 ## What does it do internally?
 
-`tablec_set` is by far the most complicated function of whole TableC, it will do a lot of things internally, and it will be explained resumidly in this section, take a look at them:
-
-First, it will look if the first key of the hashtable is filled, if it's not, it will fill and it will rapidly be done, if not, it will search for empty slots in the empty slots array, and if it still doesn't find any available slot, the bucket array will be resized, and the new slot will be filled with the key and value.
+`tablec_set` will first hash the key and then verify the capacity of the array of the hash index, if it's 0, it will check the length of the array, if it's 1 (full), it will allocate a new space, copy the existing key to the new allocation and add the key to it, if it's 0 (empty), it will add the key to the array, now, if it's 1 or more, it will iterate through the array, checking for empty slots, if it finds one, it will add the key to it, if it doesn't, it will allocate new slots (capacity * 2) and copy the existing keys to the new slots, and then add the key to the first slot empty.
 
 ## Stability
 
-`tablec_set` is not stable, it is by far the most important function, and the biggest one, making it hard to predict and fix bugs, but it is stable enough for small projects.
+`tablec_set` is stable and can be used in a production environment flawlessly.
 
 ## See also
 

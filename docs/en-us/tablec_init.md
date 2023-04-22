@@ -29,7 +29,7 @@ tablec_init(&tablec,   314159);
 
 ## Stability
 
-`tablec_init` is considered stable because it doesn't have anything that could segfault your software, it's just a simple function that allocates some memory.
+`tablec_init` is considered stable because it doesn't have anything that could segfault your software, it's just a simple function that allocates memory.
 
 ## See also
 

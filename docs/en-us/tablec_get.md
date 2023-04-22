@@ -31,18 +31,15 @@ void *tablec_get(
 
 ## Return value
 
-`tablec_get` will return `void *`, which the type will be defined by the type of the value put in the hashtable, and if the key does not exist, it will return `NULL`.
+`tablec_get` will return `void *`, in which the type is the same as the value of the key, and if the key does not exist, it will return `NULL`.
 
 ## What does it do internally?
 
-`tablec_get` will do a lot of things internally, and it will be explained in this section, take a look at them:
-
-First, it will see what's the capacity of the bucket, and with it, it will define the best way to try to seek it, in case the capacity is `1`, it will see only one bucket, but if it has `1+` capacity, it will `do {} while();` loop on the slot array to see if it's able to find.
-If it can find it, it will return the value of the key, but if it is not able to find it, it will return `NULL`.
+`tablec_get` will first hash the key and then verify the length of the array that the key is in, in case it's 0, it will ignore and `return;`, in case it's 1 or more, it will iterate through the array, `strcmp`ing the keys, and if it finds the key, it will return the value of it, and if it doesn't find the key, it will ignore and `return;`.
 
 ## Stability
 
-`tablec_get` is stable, but the dependency of other functions may make it not stable, but the function by itself is stable.
+`tablec_get` is stable and can be used in a production environment flawlessly.
 
 ## See also
 

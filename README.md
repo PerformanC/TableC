@@ -48,7 +48,7 @@ Another reason is that it is simple, complete, and has good documentation.
 
 ## Contributing
 
-Contributions are always welcome, and we are always open to new ideas, and new ways to improve the library, although not limited to the TableC files, but also the documentation.
+Contributions are always welcome, and we are always open to new ideas, and new ways to improve the library, although not limited to the TableC files, also documentation files.
 
 There are some guidelines that you should follow before contributing, and they are in the [contributing file](CONTRIBUTING.md), and if you follow them, you will be able to contribute to the TableC project.
 
@@ -58,12 +58,14 @@ TableC is a PerformanC project, and because of that, any type of question can be
 
 ## License
 
-TableC uses a customized license created by PerformanC, which has the same rights as a MIT license, except it includes a clause stating that you cannot use this software (library) to train a neural network.
+TableC is licensed under PerformanC's License, which is a modified version of the MIT License, focusing on the protection of the source code and the rights of the PerformanC team over the source code.
+
+If you wish to use some part of the source code, you must contact us first, and if we agree, you can use the source code, but you must give us credit for the source code you use.
 
 ## Projects using TableC
 
 Since TableC is a new library, it is not a popular library, and it is not used in many projects, but in case you have an Open Source project using TableC, feel free to make a pull request adding it to this list.
 
-[Experimental] [Coglink](https://github.com/PerformanC/Coglink) by PerformanC (TableC team)
+[Coglink](https://github.com/PerformanC/Coglink) by PerformanC (TableC team)
 
 * Feito com :heart: por um Brasileiro! 🇧🇷
