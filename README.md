@@ -1,31 +1,21 @@
-
 # TableC
 
-Advanced and portable closed-addressing hashtable implementation for C.
+Low-level C89 Closed/Open-addressed hashtable implementation.
 
 ## Branch info
 
-This branch is marked as a secondary branch, with open-addressing features (recommended for small tables). This is a mirror of the closed-addressing branch (main branch) but with open-addressing.
+This branch is marked as a secondary branch, using an open-addressing approach. This is a mirror of the closed-addressing branch (main branch) but with open-addressing.
 
 ## Features
 
-- [x] Simple & low-level API
 - [x] Expandable hashtable
-- [x] Set keys and values
-- [x] Get values based on the key
-- [x] Remove keys and values
+- [x] Overflow protected
+- [x] No memory leaks
+- [x] C89 compatible
 
 ## Performance
 
-TableC has high efficiency and performance, allowing it to be used on embedded systems, as well as on high-end devices like servers and desktops.
-
-It has an incredible speed, especially when in good conditions for it, such as deleting a key after using it.
-
-And all that for a new library, that was not fully optimized yet, but it's getting there.
-
-We made a benchmark using one of our benchmarking codes, and the results are:
-
-GNOME Alpine Linux v3.17 x64 (i5-2520M CPU, 3.200GHz x 2 cores, 4 threads with 8GB RAM ddr4)
+Here's a benchmark with the following configuration: GNOME Alpine Linux v3.17 x64 (i5-2520M CPU, 3.200GHz x 2 cores, 4 threads with 8GB RAM ddr4)
 
 | Samples | Repetitions (stabilization) | Time per sample |
 | ------- | --------------------------- | --------------- |
@@ -35,31 +25,33 @@ GNOME Alpine Linux v3.17 x64 (i5-2520M CPU, 3.200GHz x 2 cores, 4 threads with 8
 
 Those results shouldn't be taken as a reference, but they are not manipulated. The purpose of this benchmark is to see the performance of the library, allowing the user to see how it performs.
 
+NOTE: The benchmark was made with the [benchmark.c](tests/benchmark.c) file.
+
 ## Usage
 
-For the usage of the TableC library, you can see either in the [docs folder](docs/en-us/about.md), or in the [tests folder](tests/special_cases.c), where you can see how to use it, and how it works.
+For the usage of the TableC library, you can see either in the [docs folder](docs/en-us/about.md) or in the [tests folder](tests/special_cases.c), where you can see how to use it, and how it works.
 
 The docs folder is a way to see the usage of the library, and how each function works, and the tests folder is the code that tests TableC before committing changes to the TableC repository.
 
 ## Documentation
 
-The documentation can be seen in the [docs folder], with handwriting documentation specific to each function, with detailed and complete explanations of all (public) functions.
+The documentation can be seen in the [docs folder](docs/en-us/about.md), with handwrote documentation specific to each function, with detailed and complete explanations of all (public) functions.
 
 ## Why TableC?
 
-One of the best reasons to use TableC is because of its high portability, allowing it to be compiled on any system, and because of its high performance, which allows it to be used on low-end and embedded systems.
+One of the best reasons to use TableC is because of its high portability, allowing it to be compiled on any system, and because of its high performance, which allows it to be used on low-end machines.
 
-Another reason is that it is simple, complete, and has good documentation.
+Other reasons are its simplicity, completeness, low-level API, and its performance.
 
 ## Contributing
 
-Contributions are always welcome, and we are always open to new ideas, and new ways to improve the library, although not limited to the TableC files, but also the documentation.
+Contributions are always welcome, and we are always open to new ideas, and new ways to improve the library. (not limited to the source code)
 
-There are some guidelines that you should follow before contributing, and they are in the [contributing file](CONTRIBUTING.md), and if you follow them, you will be able to contribute to the TableC project.
+There are some guidelines that you should follow before contributing, and they are in the [contributing file](CONTRIBUTING.md). They are required to contribute to the project.
 
 ## Support
 
-TableC is a PerformanC project, and because of that, any type of question can be asked on PerformanC's [Discord server](https://discord.gg/uPveNfTuCJ), and feel free to join our Discord to talk with us.
+TableC is a PerformanC software, and because of that, any type of question can be asked on PerformanC's [Discord server](https://discord.gg/uPveNfTuCJ). Feel free to join our Discord to talk with us.
 
 ## License
 
@@ -71,6 +63,6 @@ If you wish to use some part of the source code, you must contact us first, and 
 
 Since TableC is a new library, it is not a popular library, and it is not used in many projects, but in case you have an Open Source project using TableC, feel free to make a pull request adding it to this list.
 
-[Experimental] [Coglink](https://github.com/PerformanC/Coglink) by PerformanC (TableC team)
+[Coglink](https://github.com/PerformanC/Coglink) by PerformanC (TableC team)
 
-* Feito com :heart: por um Brasileiro! 🇧🇷
+- Feito com :heart: por um Brasileiro!
