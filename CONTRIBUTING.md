@@ -12,7 +12,7 @@ In all PerformanC projects, we make sure that the code is clean and consistent, 
 
 ## Code indentation
 
-PerformanC uses its own indentation, which uses a 2-space indentation, and the code must be C89. 
+PerformanC uses its own indentation, which uses a 2-space indentation, using C89.
 
 The example below is an example of using TableC's syntax:
 
@@ -35,10 +35,10 @@ void function(void) {
     goto start;
   }
 
-  do {
+  while (variable == 0) {
     printf("Hello World!\n");
     variable = 1;
-  } while (variable == 0);
+  }
 
   return;
 }
@@ -46,4 +46,4 @@ void function(void) {
 
 ## Code comments
 
-The TableC Project has 2 main languages, English and Portuguese from Brazil, those languages can be used anywhere on the project, but only English can be used for variable names, function names, and parameters, and only Portuguese from Brazil can be used, other ones like Portuguese from Portugal or Spanish will not be accepted.
+We don't allow code comments, but any comment can be done on the documentation, as it says how the functions work, one per one.
