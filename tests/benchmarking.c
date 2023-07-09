@@ -1,5 +1,6 @@
 /*
   This benchmarking was carried out by PerformanC, and it is not permitted to sell this code as a standalone product.
+
   Please note that this code does not follow the same license as TableC and is not a part of TableC. It is only intended for use in benchmarking the library.
   For any commercial use, please contact PerformanC directly.
 */
@@ -12,7 +13,7 @@
 #define MAX_EXECUTE 1000
 #define ADD_TIMES 10000
 
-char *Benchmarking[] = { "TableC Closed-addressing" };
+char *Benchmarking[] = { "TableC No-Malloc" };
 
 double firstBench(void) {
   clock_t startTime = clock();
@@ -22,7 +23,8 @@ double firstBench(void) {
   double i = 0;
 
   struct tablec_ht tablec;
-  tablec_init(&tablec, ADD_TIMES);
+  struct tablec_bucket buckets[ADD_TIMES];
+  tablec_init(&tablec, buckets, ADD_TIMES);
 
   while (i++ <= ADD_TIMES) {
     sprintf(key, "%d", rand() % 1000);
@@ -56,7 +58,7 @@ int main(void) {
 
   executedTimes = 0, addedTime = 0;
 
-  goto firstBenchGoto;
+  /* goto firstBenchGoto; */
 
   return 0;
 }

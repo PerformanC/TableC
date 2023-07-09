@@ -4,7 +4,7 @@ Low-level C89 Closed/Open-addressed hashtable implementation.
 
 ## Branch info
 
-This branch is marked as a secondary branch, using an open-addressing approach. This is a mirror of the closed-addressing branch (main branch) but with open-addressing.
+This branch is marked as a secondary branch, using an open-addressing approach with no internal dynamic allocations. This is a mirror of the open-addressing branch (secondary branch) but with no mallocs. (fastest branch)
 
 ## Features
 
