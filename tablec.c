@@ -7,10 +7,10 @@
 void tablec_init(struct tablec_ht *tablec, size_t max_capacity) {
   tablec->length = 0;
   tablec->capacity = max_capacity - 1;
-  tablec->buckets = calloc(sizeof(struct tablec_buckets) * max_capacity, 1);
+  tablec->buckets = calloc(sizeof(struct tablec_bucket) * max_capacity, 1);
 }
 
-size_t __tablec_hash(struct tablec_ht *tablec, char *key) {
+static size_t __tablec_hash(struct tablec_ht *tablec, char *key) {
   size_t hash = 0, i = 0;
 
   while (key[i] != '\0') hash = hash * 37 + (key[i++] & 255);
@@ -75,17 +75,21 @@ void tablec_del(struct tablec_ht *tablec, char *key) {
   }
 }
 
-void *tablec_get(struct tablec_ht *tablec, char *key) {
+struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key) {
+  struct tablec_bucket empty;
   size_t hash = __tablec_hash(tablec, key);
 
   while (hash != tablec->capacity) {
     if (tablec->buckets[hash].key && strcmp(tablec->buckets[hash].key, key) == 0)
-      return tablec->buckets[hash].value;
+      return tablec->buckets[hash];
 
     hash++;
   }
 
-  return NULL;
+  empty.key = NULL;
+  empty.value = NULL;
+
+  return empty;
 }
 
 int tablec_full(struct tablec_ht *tablec) {
