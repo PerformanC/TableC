@@ -13,13 +13,13 @@ void tablec_init(struct tablec_ht *tablec, size_t max_capacity) {
   while (max_capacity--) {
     tablec->buckets[max_capacity].capacity = 1;
     tablec->buckets[max_capacity].length = 0;
-    tablec->buckets[max_capacity].array = malloc(sizeof(struct tablec_buckets_array));
+    tablec->buckets[max_capacity].array = malloc(sizeof(struct tablec_bucket));
     tablec->buckets[max_capacity].array[0].key = NULL;
     tablec->buckets[max_capacity].array[0].value = NULL;
   }
 }
 
-size_t _tablec_hash(struct tablec_ht *tablec, char *key) {
+static size_t _tablec_hash(struct tablec_ht *tablec, char *key) {
   size_t hash = 0, i = 0;
 
   while (key[i] != '\0') hash = hash * 37 + (key[i++] & 255);
@@ -53,7 +53,7 @@ void tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity) {
 }
 
 void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
-  struct tablec_buckets_array *newArray = NULL;
+  struct tablec_bucket *newArray = NULL;
   size_t hash = _tablec_hash(tablec, key);
 
   if (tablec->buckets[hash].length == 0) {
@@ -66,7 +66,7 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
     } else {
       tablec->buckets[hash].capacity = 2;
 
-      newArray = malloc(sizeof(struct tablec_buckets_array) * 2);
+      newArray = malloc(sizeof(struct tablec_bucket) * 2);
       
       newArray[0].key = tablec->buckets[hash].array[0].key;
       newArray[0].value = tablec->buckets[hash].array[0].value;
@@ -98,7 +98,7 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
 
     i = tablec->buckets[hash].capacity;
 
-    newArray = calloc(sizeof(struct tablec_buckets_array) * (tablec->buckets[hash].capacity * 2), 1);
+    newArray = calloc(sizeof(struct tablec_bucket) * (tablec->buckets[hash].capacity * 2), 1);
     while (i--) {
       if (!tablec->buckets[hash].array[i].key) {
         newArray[i].key = NULL;
@@ -124,17 +124,26 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
   }
 }
 
-void *tablec_get(struct tablec_ht *tablec, char *key) {
+struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key) {
+  struct tablec_bucket empty;
   size_t hash = _tablec_hash(tablec, key), i = tablec->buckets[hash].capacity;
 
-  if (tablec->buckets[hash].length == 0) return NULL;
+  if (tablec->buckets[hash].length == 0) {
+    empty.key = NULL;
+    empty.value = NULL;
+
+    return empty;
+  }
   
   while (i--) {
     if (tablec->buckets[hash].array[i].key != NULL && strcmp(tablec->buckets[hash].array[i].key, key) == 0)
-      return tablec->buckets[hash].array[i].value;
+      return tablec->buckets[hash].array[i];
   }
 
-  return NULL;
+  empty.key = NULL;
+  empty.value = NULL;
+
+  return empty;
 }
 
 void tablec_del(struct tablec_ht *tablec, char *key) {
