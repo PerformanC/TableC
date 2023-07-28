@@ -171,5 +171,4 @@ long tablec_full(struct tablec_ht *tablec) {
 void tablec_cleanup(struct tablec_ht *tablec) {
   while (tablec->capacity--) free(tablec->buckets[tablec->capacity].array);
   free(tablec->buckets);
-  tablec = NULL;
 }
