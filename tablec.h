@@ -14,7 +14,7 @@ struct tablec_ht {
 
 void tablec_init(struct tablec_ht *tablec, size_t max_capacity);
 
-struct tablec_ht tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity);
+void tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity);
 
 void tablec_set(struct tablec_ht *tablec, char *key, void *value);
 

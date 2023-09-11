@@ -18,7 +18,7 @@ static size_t __tablec_hash(struct tablec_ht *tablec, char *key) {
   return hash % tablec->capacity;
 }
 
-struct tablec_ht tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity) {
+void tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity) {
   struct tablec_ht newHashtable;
   tablec_init(&newHashtable, new_max_capacity);
 
@@ -28,8 +28,8 @@ struct tablec_ht tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity
     tablec_set(&newHashtable, tablec->buckets[tablec->capacity].key, tablec->buckets[tablec->capacity].value);
   }
 
-  free(tablec->buckets);
-  return newHashtable;
+  tablec_cleanup(tablec);
+  *tablec = newHashtable;
 }
 
 void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
@@ -98,5 +98,4 @@ int tablec_full(struct tablec_ht *tablec) {
 
 void tablec_cleanup(struct tablec_ht *tablec) {
   free(tablec->buckets);
-  tablec = NULL;
 }
