@@ -1,19 +1,16 @@
-# TableC PR Template
+## Changes
 
-## Resume of the changes
+Write here about the changes you've made
 
-Write here a resume of the changes you made
+## Why 
 
-## Detailed information about the changes
-
-Write here detailed information about the changes you made
+Write here why you think this should be merged
 
 ## Checkmarks
 
-- [ ] I have tested TableC with my changes and all tests pass.
-- [ ] I have used the same indentation as the rest of the project.
-- [ ] I have updated the documentation of the project. (OPTIONAL)
+- [ ] The modified functions have been tested.
+- [ ] Used the same indentation as the rest of the project.
 
 ## Additional information
 
-*Write here any additional information you may want to add* (OPTIONAL)
+If you have any additional information, write it here
