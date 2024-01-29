@@ -67,10 +67,14 @@ TEST hashtable_overflow(void) {
   tablec_set(&tablec, key, value);
   ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key).value, value), 0);
 
+  ASSERT_EQm("TableC was not able to detect that the hashtable is full.", tablec_full(&tablec), -1);
+
   tablec_set(&tablec, otherKey, value);
   ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, otherKey).value, value), 0);
 
   ASSERT_EQm("TableC was not able to detect that the hashtable is full.", tablec_full(&tablec), -1);
+
+  tablec_cleanup(&tablec);
 
   PASSm("TableC was able to overflow the hashtable.");
 }
