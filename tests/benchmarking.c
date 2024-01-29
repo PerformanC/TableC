@@ -7,7 +7,49 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
+
+struct tablec_bucket {
+  char *key;
+  void *value;
+};
+
+struct tablec_ht {
+  size_t length;
+  size_t capacity;
+  struct tablec_bucket *buckets;
+};
+
+#define TABLEC_BUCKET struct tablec_bucket
+
+#define TABLEC_HT struct tablec_ht
+
+#define TABLEC_BUCKETS buckets
+
+#define TABLEC_KEY_HASH(_key, data)                           \
+  size_t hash = 0, i = 0;                                     \
+  char *key = (char *)_key;                                   \
+                                                              \
+  (void)data;                                                 \
+                                                              \
+  while (key[i] != '\0') hash = hash * 37 + (key[i++] & 255); \
+                                                              \
+  return hash;
+
+#define TABLEC_KEY key
+
+#define TABLEC_VALUE value
+
+#define TABLEC_KEY_COMPARE(key, otherKey, data) \
+    (void)data;                                 \
+                                                \
+    return strcmp(key, otherKey)
+
+#define TABLEC_CHECK_NULL(x) (x == NULL)
+
+#define TABLEC_ASSIGN(x, y) *x = y
+
 #include "../tablec.h"
 
 #define MAX_EXECUTE 1000
@@ -28,9 +70,9 @@ double firstBench(void) {
 
   while (i++ <= ADD_TIMES) {
     sprintf(key, "%d", rand() % 1000);
-    tablec_set(&tablec, key, value);
-    tablec_get(&tablec, key);
-    tablec_del(&tablec, key);
+    tablec_set(&tablec, key, value, NULL);
+    tablec_get(&tablec, key, NULL);
+    tablec_del(&tablec, key, NULL);
   }
 
   return ((double)(clock() - startTime) / CLOCKS_PER_SEC);
