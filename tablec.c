@@ -6,7 +6,7 @@
 
 void tablec_init(struct tablec_ht *tablec, size_t max_capacity) {
   tablec->length = 0;
-  tablec->capacity = max_capacity - 1;
+  tablec->capacity = max_capacity;
   tablec->buckets = calloc(sizeof(struct tablec_bucket) * max_capacity, 1);
 }
 
@@ -93,7 +93,7 @@ struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key) {
 }
 
 int tablec_full(struct tablec_ht *tablec) {
-  return tablec->capacity == tablec->length - 1 ? -1 : tablec->capacity - tablec->length + 1;
+  return tablec->capacity == tablec->length ? -1 : tablec->capacity - tablec->length;
 }
 
 void tablec_cleanup(struct tablec_ht *tablec) {
