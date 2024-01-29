@@ -110,3 +110,7 @@ struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key) {
 
   return empty;
 }
+
+size_t tablec_full(struct tablec_ht *tablec) {
+  return tablec->capacity == tablec->length ? -1 : tablec->capacity - tablec->length;
+}
