@@ -1,0 +1,7 @@
+*
+
+!.gitignore
+!benchmarking.c
+!greatest.h
+!Makefile
+!testing.c
