@@ -165,7 +165,7 @@ void tablec_del(struct tablec_ht *tablec, char *key) {
 }
 
 int tablec_full(struct tablec_ht *tablec) {
-  return (int)(tablec->capacity == tablec->length ? -1 : tablec->capacity - tablec->length);
+  return tablec->capacity == tablec->length ? -1 : tablec->capacity - tablec->length;
 }
 
 void tablec_cleanup(struct tablec_ht *tablec) {
