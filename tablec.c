@@ -164,11 +164,13 @@ void tablec_del(struct tablec_ht *tablec, char *key) {
   }
 }
 
-long tablec_full(struct tablec_ht *tablec) {
-  return tablec->capacity == tablec->length ? (long)-1 : (long)tablec->capacity - (long)tablec->length;
+int tablec_full(struct tablec_ht *tablec) {
+  return (int)(tablec->capacity == tablec->length ? -1 : tablec->capacity - tablec->length);
 }
 
 void tablec_cleanup(struct tablec_ht *tablec) {
-  while (tablec->capacity--) free(tablec->buckets[tablec->capacity].array);
+  while (tablec->capacity--)
+    free(tablec->buckets[tablec->capacity].array);
+
   free(tablec->buckets);
 }

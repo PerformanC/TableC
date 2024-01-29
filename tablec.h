@@ -30,7 +30,7 @@ struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key);
 
 void tablec_del(struct tablec_ht *tablec, char *key);
 
-long tablec_full(struct tablec_ht *tablec);
+int tablec_full(struct tablec_ht *tablec);
 
 void tablec_cleanup(struct tablec_ht *tablec);
 

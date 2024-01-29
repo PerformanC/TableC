@@ -58,6 +58,23 @@ TEST setting_key_and_read_after_deleting(void) {
   PASSm("TableC was able to set a key and a value after deleting the same key.");
 }
 
+TEST hashtable_overflow(void) {
+  struct tablec_ht tablec;
+  tablec_init(&tablec, 1);
+
+  ASSERT_EQm("TableC was not able to detect that the hashtable is full.", tablec_full(&tablec), 1);
+
+  tablec_set(&tablec, key, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key).value, value), 0);
+
+  tablec_set(&tablec, otherKey, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, otherKey).value, value), 0);
+
+  ASSERT_EQm("TableC was not able to detect that the hashtable is full.", tablec_full(&tablec), -1);
+
+  PASSm("TableC was able to overflow the hashtable.");
+}
+
 TEST setting_2_keys_with_the_same_pos_and_deleting(void) {
   struct tablec_ht tablec;
   tablec_init(&tablec, 100);
@@ -150,6 +167,7 @@ SUITE(special_cases) {
   RUN_TEST(start_hashtable);
   RUN_TEST(setting_key);
   RUN_TEST(setting_key_and_read_after_deleting);
+  RUN_TEST(hashtable_overflow);
   RUN_TEST(setting_2_keys_with_the_same_pos_and_deleting);
   RUN_TEST(deleting_and_reading_non_exist_key);
   RUN_TEST(see_empty_slots_after_deleting);
