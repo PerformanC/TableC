@@ -26,7 +26,7 @@ void tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity);
 
 void tablec_set(struct tablec_ht *tablec, char *key, void *value);
 
-struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key);
+struct tablec_bucket *tablec_get(struct tablec_ht *tablec, char *key);
 
 void tablec_del(struct tablec_ht *tablec, char *key);
 

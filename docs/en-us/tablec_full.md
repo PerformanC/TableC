@@ -1,10 +1,8 @@
 # The tablec_full function
 
-The `tablec_full` function is a basic function to allow you to check if the hashtable is full or not, and not break your code when any change happens to the structures.
+The `tablec_full` function allows to check how many buckets are not full, and if the hashtable is full or not. This allows do to optimized resizes, by resizing before the hashtable is full.
 
 ## Usage
-
-`tablec_full` uses basic math to check if the hashtable is full or not, and it will return a value, which is -1 if it's full, and the number of buckets that are not full if it's not full.
 
 ```c
 struct tablec_ht tablec;
@@ -15,26 +13,28 @@ tablec_full(&tablec);
 ## Parameters
 
 ```c
-long tablec_full(
+int tablec_full(
   struct tablec_ht *tablec
 );
 ```
 
 `tablec_init` has only one parameters, used to verify if the hashtable is full, take a look at it:
 
-*  `Table`       - `struct tablec_ht` The hashtable variable, is used to save keys and values.
+*  `Table` - `struct tablec_ht` The hashtable variable, is used to save keys and values.
 
 ## Return value
 
-`tablec_full` returns the value `-1` if the hashtable is full, and the number of buckets that are not full if it's not full.
+`tablec_full` returns the value `-1` if the hashtable is full, and the number of empty buckets if not.
 
 ## What does it do internally?
 
-`tablec_full` does a simple math calculation, capacity - length, and returns the value.
+1. Checks if the hashtable is full
+    - If it is, it will return `-1`
+    - If it's not, it will calculate `capacity - length` and return the value
 
 ## Stability
 
-`tablec_full` is stable, since there is no possibility of failure.
+`tablec_full` is stable and can be used in a production environment flawlessly.
 
 ## See also
 

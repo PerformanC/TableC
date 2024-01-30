@@ -124,26 +124,17 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
   }
 }
 
-struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key) {
-  struct tablec_bucket empty;
+struct tablec_bucket *tablec_get(struct tablec_ht *tablec, char *key) {
   size_t hash = _tablec_hash(tablec, key), i = tablec->buckets[hash].capacity;
 
-  if (tablec->buckets[hash].length == 0) {
-    empty.key = NULL;
-    empty.value = NULL;
-
-    return empty;
-  }
+  if (tablec->buckets[hash].length == 0) return NULL;
   
   while (i--) {
     if (tablec->buckets[hash].array[i].key != NULL && strcmp(tablec->buckets[hash].array[i].key, key) == 0)
-      return tablec->buckets[hash].array[i];
+      return &tablec->buckets[hash].array[i];
   }
 
-  empty.key = NULL;
-  empty.value = NULL;
-
-  return empty;
+  return NULL;
 }
 
 void tablec_del(struct tablec_ht *tablec, char *key) {

@@ -4,8 +4,6 @@
 
 ## Usage
 
-`tablec_resize` is simple to use, but if you resize the hashtable with a value that is smaller than the current capacity, it will end up in a crash, so be careful with it.
-
 ```c
 //             Table   Capacity 
 tablec_resize(&tablec,   128);
@@ -31,11 +29,14 @@ NULL tablec_resize(
 
 ## What does it do internally?
 
-`tablec_resize` will first create a new hashtable with the new capacity, and then it will iterate through the old hashtable, and copy the keys and values to the new hashtable, and then it will free the old hashtable, and set the new hashtable to the old hashtable.
+1. Creates a new hashtable with the new capacity
+2. Iterates through the old hashtable, copying the keys and values to the new hashtable
+3. Frees the old hashtable
+4. Sets the new hashtable to the old hashtable
 
 ## Stability
 
-`tablec_resize` is stable and can be used in a production environment flawlessly, but it's not recommended to use it, since depending on the size of the hashtable, it can take a while to resize it.
+`tablec_resize` is stable and can be used in a production environment flawlessly.
 
 ## See also
 

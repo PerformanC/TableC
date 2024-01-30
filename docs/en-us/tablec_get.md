@@ -4,38 +4,44 @@ The `tablec_get` function is used to get the value of a key using the key as a s
 
 ## Usage
 
-`tablec_get` is an easy function to use, and your syntax is easy to understand and read, this will be an example of getting the set value of the key `furry`:
-
 ```c
-//                                        Table     Key 
-struct tablec_bucket bucket = tablec_get(&tablec, "furry");
+//                                         Table     Key 
+struct tablec_bucket *bucket = tablec_get(&tablec, "furry");
 
-printf("[TableC]: Value of the key \"furry\": %d\n", bucket.key, (int)bucket.value);
+printf("[TableC]: Value of the key \"furry\": %d\n", bucket->key, (int)bucket->value);
 ```
 
-Remember that this will only return the value of the key if you have set it before, if you haven't set it, it will return `NULL`. In case you want to set it, see the [`tablec_set`](tablec_set.md) docs to see how to set it.
+> [!NOTE]
+> This functin will return `NULL` if the key does not exist.
 
 ## Parameters
 
 ```c
-struct tablec_bucket tablec_get(
+struct tablec_bucket *tablec_get(
   struct tablec_ht *tablec,
   char *            key
 );
 ```
 
-`tablec_get` has 3 parameters, used to find the value of it, take a look at them:
+`tablec_get` has 2 parameters, used to find the value of it, take a look at them:
 
 *  `Table`  - `struct tablec_ht` The hashtable variable, is used to save keys and values.
 *  `Key`    - `char *`           The key to search the value related to it.
 
 ## Return value
 
-`tablec_get` will return `struct tablec_bucket`, in which the type is the same as the value of the key, and if the key does not exist, it will return `NULL`.
+1. If the key is found, returns a `struct tablec_bucket *` with the `key` and `value` fields.
+2. If the key is not found, returns `NULL`.
 
 ## What does it do internally?
 
-`tablec_get` will first hash the key and then verify the length of the array that the key is in, in case it's 0, it will return an empty bucket, in case it's 1 or more, it will iterate through the array, `strcmp`ing the keys, and if it finds the key, it will return the bucket, and if it doesn't find the key, it will return an empty bucket.
+1. Hashes the key
+2. Verifies the capacity of the array of the hash index
+    - If it's 0, it will return an empty bucket
+    - If it's 1 or more, continue
+3. Iterates through the array of the hash index, checking for the key with `strcmp`
+    - If it finds it, it will return the bucket
+    - If it doesn't, it will return an empty bucket
 
 ## Stability
 

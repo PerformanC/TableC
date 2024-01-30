@@ -4,10 +4,6 @@
 
 ## Uso
 
-`tablec_set` é uma função flexível, que permite salvar qualquer tipo de valor nela, com uma limitação, a chave deve ser um `char *`, mas o valor pode ser qualquer coisa, e será salvo como um `void *`, o que significa que você precisará fazer um cast para o tipo que você quer usar.
-
-O exemplo abaixo irá salvar uma chave chamada `furry` com o valor `true`:
-
 ```c
 //          Table    Chave      Valor
 tablec_set(&tablec, "furry", (void *)true);
@@ -35,7 +31,15 @@ NULL tablec_set(
 
 ## O que ele faz internamente?
 
-`tablec_set` irá primeiro fazer o hash da chave e depois verificar a capacidade do array do índice do hash, se for 0, ele irá verificar o tamanho do array, se for 1 (cheio), ele irá alocar um novo espaço, copiar a chave existente para a nova alocação e adicionar a chave a ela, se for 0 (vazio), ele irá adicionar a chave ao array, agora, se for 1 ou mais, ele irá iterar pelo array, verificando por slots vazios, se ele encontrar um, ele irá adicionar a chave a ele, se não, ele irá alocar novos slots (capacidade * 2) e copiar as chaves existentes para os novos slots, e então adicionar a chave ao primeiro slot vazio.
+1. Faz o hash da chave
+2. Verifica o tamanho do array do índice do hash
+    - Se for 0, ele irá ignorar e `return;`
+    - Se for 1 ou mais, continue
+3. Itera pelo array do índice do hash, verificando pela chave com `strcmp`
+    - Se ele encontrar um slot vazio, ele irá adicionar a chave nele
+    - Se ele não encontrar um slot vazio, ele irá alocar novos slots (capacidade * 2) e copiar as chaves existentes para os novos slots, e então adicionar a chave para o primeiro slot vazio.
+4. Salva o valor na chave
+5. Incrementa o tamanho da hashtable
 
 ## Estabilidade
 

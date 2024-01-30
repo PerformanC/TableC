@@ -4,8 +4,6 @@ A função `tablec_init` é usada para inicializar a hashtable, e é a função 
 
 ## Uso
 
-`tablec_init` é fácil de se compreender, mas você precisa prestar atenção na capacidade máxima da hashtable, que se você definir mais chaves do que a capacidade máxima, irá acabar não funcionando, então tenha cuidado com isso.
-
 ```c
 struct tablec_ht tablec;
 //          Table     Capacidade
@@ -25,11 +23,13 @@ tablec_init(&tablec,   314159);
 
 ## O que ele faz internamente?
 
-`tablec_init` vai simplesmente `malloc` a hashtable para a capacidade, e também irá definir a capacidade da hashtable.
+1. Inicializa os campos
+2. Aloca os buckets com `calloc`
+3. Inicializa os buckets
 
 ## Estabilidade
 
-`tablec_init` é estável porque não tem nada que pode causar um segfault em seu software, é apenas uma função simples que aloca memória.
+`tablec_init` é estável e pode ser usada em um ambiente de produção sem problemas.
 
 ## Veja também
 

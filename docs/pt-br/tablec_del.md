@@ -4,8 +4,6 @@ A função `tablec_del` é uma função importante, pois é um dos sistemas usad
 
 ## Uso
 
-`tablec_del` é uma das funções mais fáceis de se usar, já que o seu uso necessita de poucos parâmetros, e é fácil de se entender, aqui vai um exemplo de deletando a chave `furry`:
-
 ```c
 //          Table    Chave
 tablec_del(&tablec, "furry");
@@ -31,7 +29,14 @@ NULL tablec_del(
 
 ## O que ele faz internamente?
 
-`tablec_del` vai primeiro fazer o hash da chave, e depois verificar o tamanho do array que a chave está, caso o tamanho seja 0, ele irá ignorar e `return;`, caso o tamanho seja 1 ou mais, ele irá iterar pelo array, `strcmp`ando as chaves, e se ele encontrar a chave, ele irá deletar a mesma, e se ele não encontrar a chave, ele irá ignorar e `return;`.
+1. Faz o hash da chave
+2. Verifica o tamanho do array do índice do hash
+    - Se for 0, ele irá ignorar e `return;`
+    - Se for 1 ou mais, continue
+3. Itera pelo array do índice do hash, verificando pela chave com `strcmp`
+    - Se ele encontrar a chave, ele irá deletar a chave e o valor
+    - Se ele não encontrar a chave, ele irá ignorar e `return;`
+4. Decrementa o tamanho da hashtable
 
 ## Estabilidade
 

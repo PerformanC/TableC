@@ -4,8 +4,6 @@ The `tablec_init` function is the most important function, which initialized the
 
 ## Usage
 
-`tablec_init` is easy to comprehend, but you need to pay attention to the hashtable maximum capacity, which if you set more keys than the maximum capacity, would end up not working, so be careful with it.
-
 ```c
 struct tablec_ht tablec;
 //          Table     Capacity
@@ -25,11 +23,13 @@ tablec_init(&tablec,   314159);
 
 ## What does it do internally?
 
-`tablec_init` will simply `malloc` the hashtable to the capacity, and it will also set the capacity to the hashtable variables.
+1. Initializes fields
+2. Allocates buckets with `calloc`
+3. Initializes the buckets
 
 ## Stability
 
-`tablec_init` is considered stable because it doesn't have anything that could segfault your software, it's just a simple function that allocates memory.
+`tablec_init` is stable and can be used in a production environment flawlessly.
 
 ## See also
 

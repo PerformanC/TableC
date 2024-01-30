@@ -4,8 +4,6 @@
 
 ## Usage
 
-`tablec_del` is the easiest function since it requires few parameters, and it's easy to understand, this will be an example of deleting the key `furry`:
-
 ```c
 //          Table     Key
 tablec_del(&tablec, "furry");
@@ -31,7 +29,14 @@ NULL tablec_del(
 
 ## What does it do internally?
 
-`tablec_del` will first hash the key and then verify the length of the array that the key is in, in case it's 0, it will ignore and `return;`, in case it's 1 or more, it will iterate through the array, `strcmp`ing the keys, and if it finds the key, it will delete it, and if it doesn't find the key, it will ignore and `return;`.
+1. Hashes the key
+2. Verifies the capacity of the array of the hash index
+    - If it's 0, it will ignore and `return;`
+    - If it's 1 or more, continue
+3. Iterates through the array of the hash index, checking for the key with `strcmp`
+    - If it finds it, it will delete the key and value
+    - If it doesn't, it will ignore and `return;`
+4. Decrements the length of the hashtable
 
 ## Stability
 
