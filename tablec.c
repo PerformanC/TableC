@@ -75,21 +75,17 @@ void tablec_del(struct tablec_ht *tablec, char *key) {
   }
 }
 
-struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key) {
-  struct tablec_bucket empty;
+struct tablec_bucket *tablec_get(struct tablec_ht *tablec, char *key) {
   size_t hash = __tablec_hash(tablec, key);
 
   while (hash != tablec->capacity) {
     if (tablec->buckets[hash].key && strcmp(tablec->buckets[hash].key, key) == 0)
-      return tablec->buckets[hash];
+      return &tablec->buckets[hash];
 
     hash++;
   }
 
-  empty.key = NULL;
-  empty.value = NULL;
-
-  return empty;
+  return NULL;
 }
 
 int tablec_full(struct tablec_ht *tablec) {

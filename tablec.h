@@ -20,7 +20,7 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value);
 
 void tablec_del(struct tablec_ht *tablec, char *key);
 
-struct tablec_bucket tablec_get(struct tablec_ht *tablec, char *key);
+struct tablec_bucket *tablec_get(struct tablec_ht *tablec, char *key);
 
 int tablec_full(struct tablec_ht *tablec);
 
