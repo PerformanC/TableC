@@ -24,13 +24,13 @@ struct tablec_ht {
   struct tablec_bucket *buckets;
 };
 
-#define TABLEC_BUCKET struct tablec_bucket
+#define TABLEC_SYMBOL_BUCKET struct tablec_bucket
 
-#define TABLEC_HT struct tablec_ht
+#define TABLEC_SYMBOL_HT struct tablec_ht
 
-#define TABLEC_BUCKETS buckets
+#define TABLEC_SYMBOL_BUCKETS buckets
 
-#define TABLEC_KEY_HASH(_key, data)                           \
+#define TABLEC_SYMBOL_KEY_HASH(_key, data)                    \
   size_t hash = 0, i = 0;                                     \
   char *key = (char *)_key;                                   \
                                                               \
@@ -40,18 +40,18 @@ struct tablec_ht {
                                                               \
   return hash;
 
-#define TABLEC_KEY key
+#define TABLEC_SYMBOL_KEY key
 
-#define TABLEC_VALUE value
+#define TABLEC_SYMBOL_VALUE value
 
-#define TABLEC_KEY_COMPARE(key, otherKey, data) \
-    (void)data;                                 \
-                                                \
+#define TABLEC_SYMBOL_KEY_COMPARE(key, otherKey, data) \
+    (void)data;                                        \
+                                                       \
     return strcmp(key, otherKey)
 
-#define TABLEC_CHECK_NULL(x) (x == NULL)
+#define TABLEC_SYMBOL_CHECK_NULL(x) (x == NULL)
 
-#define TABLEC_ASSIGN(x, y) *x = y
+#define TABLEC_SYMBOL_ASSIGN(x, y) *x = y
 
 #include "greatest.h"
 #include "../tablec.h"
