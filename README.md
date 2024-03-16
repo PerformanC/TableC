@@ -56,6 +56,6 @@ Since TableC is a new library, it is not a popular library, and it is not used i
 
 ## License
 
-TableC is licensed under PerformanC's License, which is a modified version of the MIT License, focusing on the protection of the source code and the rights of the PerformanC team over the source code.
+TableC is licensed under [BSD 2-Clause License](LICENSE). You can read more about it on [Open Source Initiative](https://opensource.org/licenses/BSD-2-Clause).
 
 - Feito com :heart: por um Brasileiro!
