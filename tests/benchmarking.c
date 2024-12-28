@@ -10,24 +10,24 @@
 #include <string.h>
 #include <time.h>
 
-struct tablec_bucket {
+struct tablec_oac_bucket {
   char *key;
   void *value;
 };
 
-struct tablec_ht {
+struct tablec_oac_ht {
   size_t length;
   size_t capacity;
-  struct tablec_bucket *buckets;
+  struct tablec_oac_bucket *buckets;
 };
 
-#define TABLEC_SYMBOL_BUCKET struct tablec_bucket
+#define TABLEC_OAC_SYMBOL_BUCKET struct tablec_oac_bucket
 
-#define TABLEC_SYMBOL_HT struct tablec_ht
+#define TABLEC_OAC_SYMBOL_HT struct tablec_oac_ht
 
-#define TABLEC_SYMBOL_BUCKETS buckets
+#define TABLEC_OAC_SYMBOL_BUCKETS buckets
 
-#define TABLEC_SYMBOL_KEY_HASH(_key, data)                    \
+#define TABLEC_OAC_SYMBOL_KEY_HASH(_key, data)                    \
   size_t hash = 0, i = 0;                                     \
   char *key = (char *)_key;                                   \
                                                               \
@@ -37,18 +37,18 @@ struct tablec_ht {
                                                               \
   return hash;
 
-#define TABLEC_SYMBOL_KEY key
+#define TABLEC_OAC_SYMBOL_KEY key
 
-#define TABLEC_SYMBOL_VALUE value
+#define TABLEC_OAC_SYMBOL_VALUE value
 
-#define TABLEC_SYMBOL_KEY_COMPARE(key, otherKey, data) \
+#define TABLEC_OAC_SYMBOL_KEY_COMPARE(key, otherKey, data) \
     (void)data;                                        \
                                                        \
     return strcmp(key, otherKey)
 
-#define TABLEC_SYMBOL_CHECK_NULL(x) (x == NULL)
+#define TABLEC_OAC_SYMBOL_CHECK_NULL(x) (x == NULL)
 
-#define TABLEC_SYMBOL_ASSIGN(x, y) *x = y
+#define TABLEC_OAC_SYMBOL_ASSIGN(x, y) *x = y
 
 #include "../tablec.h"
 
@@ -64,15 +64,15 @@ double firstBench(void) {
   char *value = "Benchmarking";
   double i = 0;
 
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[ADD_TIMES];
-  tablec_init(&tablec, buckets, ADD_TIMES);
+  struct tablec_oac_ht tablec;
+  struct tablec_oac_bucket buckets[ADD_TIMES];
+  tablec_oac_init(&tablec, buckets, ADD_TIMES);
 
   while (i++ <= ADD_TIMES) {
     sprintf(key, "%d", rand() % 1000);
-    tablec_set(&tablec, key, value, NULL);
-    tablec_get(&tablec, key, NULL);
-    tablec_del(&tablec, key, NULL);
+    tablec_oac_set(&tablec, key, value, NULL);
+    tablec_oac_get(&tablec, key, NULL);
+    tablec_oac_del(&tablec, key, NULL);
   }
 
   return ((double)(clock() - startTime) / CLOCKS_PER_SEC);
