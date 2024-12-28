@@ -56,7 +56,7 @@ int main(void) {
 
   executedTimes = 0, addedTime = 0;
 
-  goto firstBenchGoto;
+  /* goto firstBenchGoto; */
 
   return 0;
 }
