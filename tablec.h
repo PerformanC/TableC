@@ -1,37 +1,37 @@
-#ifndef TABLEC_H
-#define TABLEC_H
+#ifndef TABLEC_CA_H
+#define TABLEC_CA_H
 
 #include <stddef.h>
 
-struct tablec_bucket {
+struct tablec_ca_bucket {
   char *key;
   void *value;
 };
 
-struct tablec_buckets {
-  struct tablec_bucket *array;
+struct tablec_ca_buckets {
+  struct tablec_ca_bucket *array;
   size_t length;
   size_t capacity;
 };
 
-struct tablec_ht {
-  struct tablec_buckets *buckets;
+struct tablec_ca_ht {
+  struct tablec_ca_buckets *buckets;
   size_t length;
   size_t capacity;
 };
 
-void tablec_init(struct tablec_ht *tablec, size_t max_capacity);
+void tablec_ca_init(struct tablec_ca_ht *tablec, size_t max_capacity);
 
-void tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity);
+void tablec_ca_resize(struct tablec_ca_ht *tablec, size_t new_max_capacity);
 
-void tablec_set(struct tablec_ht *tablec, char *key, void *value);
+void tablec_ca_set(struct tablec_ca_ht *tablec, char *key, void *value);
 
-struct tablec_bucket *tablec_get(struct tablec_ht *tablec, char *key);
+struct tablec_ca_bucket *tablec_ca_get(struct tablec_ca_ht *tablec, char *key);
 
-void tablec_del(struct tablec_ht *tablec, char *key);
+void tablec_ca_del(struct tablec_ca_ht *tablec, char *key);
 
-int tablec_full(struct tablec_ht *tablec);
+int tablec_ca_full(struct tablec_ca_ht *tablec);
 
-void tablec_cleanup(struct tablec_ht *tablec);
+void tablec_ca_cleanup(struct tablec_ca_ht *tablec);
 
 #endif
