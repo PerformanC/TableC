@@ -22,15 +22,15 @@ double firstBench(void) {
   char *value = "Benchmarking";
   double i = 0;
 
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[ADD_TIMES];
-  tablec_init(&tablec, buckets, ADD_TIMES);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[ADD_TIMES];
+  tablec_oanm_init(&tablec, buckets, ADD_TIMES);
 
   while (i++ <= ADD_TIMES) {
     sprintf(key, "%d", rand() % 1000);
-    tablec_set(&tablec, key, value);
-    tablec_get(&tablec, key);
-    tablec_del(&tablec, key);
+    tablec_oanm_set(&tablec, key, value);
+    tablec_oanm_get(&tablec, key);
+    tablec_oanm_del(&tablec, key);
   }
 
   return ((double)(clock() - startTime) / CLOCKS_PER_SEC);

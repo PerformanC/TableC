@@ -20,103 +20,103 @@ char *otherKey = "8";
 char *value = "Funcionando, 1, 2 e 3..";
 
 TEST start_hashtable(void) {
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[16];
-  tablec_init(&tablec, buckets, 16);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[16];
+  tablec_oanm_init(&tablec, buckets, 16);
 
   PASSm("TableC was able to initialize the hashtable.");
 }
 
 TEST setting_key(void) {
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[16];
-  tablec_init(&tablec, buckets, 16);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[16];
+  tablec_oanm_init(&tablec, buckets, 16);
 
-  tablec_set(&tablec, key, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key)->value, value), 0);
+  tablec_oanm_set(&tablec, key, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, key)->value, value), 0);
 
   PASSm("TableC was able to set a key and a value.");
 }
 
 TEST setting_key_and_read_after_deleting(void) {
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[16];
-  tablec_init(&tablec, buckets, 16);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[16];
+  tablec_oanm_init(&tablec, buckets, 16);
 
-  tablec_set(&tablec, key, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key)->value, value), 0);
+  tablec_oanm_set(&tablec, key, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, key)->value, value), 0);
 
-  tablec_del(&tablec, key);
-  ASSERT_EQm("TableC was not able to delete key.", tablec_get(&tablec, key) == NULL, 1);
+  tablec_oanm_del(&tablec, key);
+  ASSERT_EQm("TableC was not able to delete key.", tablec_oanm_get(&tablec, key) == NULL, 1);
 
-  tablec_set(&tablec, key, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key)->value, value), 0);
+  tablec_oanm_set(&tablec, key, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, key)->value, value), 0);
 
   PASSm("TableC was able to set a key and a value after deleting the same key.");
 }
 
 TEST hashtable_overflow(void) {
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[1];
-  tablec_init(&tablec, buckets, 1);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[1];
+  tablec_oanm_init(&tablec, buckets, 1);
 
-  ASSERT_EQm("TableC was not able to detect that the hashtable is full.", tablec_full(&tablec), 1);
+  ASSERT_EQm("TableC was not able to detect that the hashtable is full.", tablec_oanm_full(&tablec), 1);
 
-  tablec_set(&tablec, key, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key)->value, value), 0);
+  tablec_oanm_set(&tablec, key, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, key)->value, value), 0);
 
-  tablec_set(&tablec, otherKey, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", tablec_get(&tablec, otherKey) == NULL, 1);
+  tablec_oanm_set(&tablec, otherKey, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", tablec_oanm_get(&tablec, otherKey) == NULL, 1);
 
-  ASSERT_EQm("TableC was not able to detect that the hashtable is full.", tablec_full(&tablec), (size_t)-1);
+  ASSERT_EQm("TableC was not able to detect that the hashtable is full.", tablec_oanm_full(&tablec), (size_t)-1);
 
   PASSm("TableC was able to overflow the hashtable.");
 }
 
 TEST setting_2_keys_with_the_same_pos_and_deleting(void) {
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[100];
-  tablec_init(&tablec, buckets, 100);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[100];
+  tablec_oanm_init(&tablec, buckets, 100);
 
-  tablec_set(&tablec, key, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key)->value, value), 0);
+  tablec_oanm_set(&tablec, key, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, key)->value, value), 0);
 
-  tablec_set(&tablec, otherKey, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, otherKey)->value, value), 0);
+  tablec_oanm_set(&tablec, otherKey, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, otherKey)->value, value), 0);
 
-  tablec_del(&tablec, key);
-  ASSERT_EQm("TableC was not able to delete key.", tablec_get(&tablec, key) == NULL, 1);
+  tablec_oanm_del(&tablec, key);
+  ASSERT_EQm("TableC was not able to delete key.", tablec_oanm_get(&tablec, key) == NULL, 1);
 
-  tablec_set(&tablec, key, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key)->value, value), 0);
+  tablec_oanm_set(&tablec, key, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, key)->value, value), 0);
 
   PASSm("TableC was able to set a key and a value after deleting the same key.");
 }
 
 TEST deleting_and_reading_non_exist_key(void) {
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[16];
-  tablec_init(&tablec, buckets, 16);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[16];
+  tablec_oanm_init(&tablec, buckets, 16);
 
-  tablec_del(&tablec, key);
-  ASSERT_EQm("TableC was not able to delete key.", tablec_get(&tablec, key) == NULL, 1);
+  tablec_oanm_del(&tablec, key);
+  ASSERT_EQm("TableC was not able to delete key.", tablec_oanm_get(&tablec, key) == NULL, 1);
 
   PASSm("TableC was able to delete a non existent key and not segfault.");
 }
 
 TEST see_empty_slots_after_deleting(void) {
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[100];
-  tablec_init(&tablec, buckets, 100);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[100];
+  tablec_oanm_init(&tablec, buckets, 100);
 
-  tablec_set(&tablec, key, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, key)->value, value), 0);
+  tablec_oanm_set(&tablec, key, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, key)->value, value), 0);
 
-  tablec_set(&tablec, otherKey, value);
-  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, otherKey)->value, value), 0);
+  tablec_oanm_set(&tablec, otherKey, value);
+  ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, otherKey)->value, value), 0);
 
-  tablec_del(&tablec, key);
-  ASSERT_EQm("TableC was not able to delete key.", tablec_get(&tablec, key) == NULL, 1);
+  tablec_oanm_del(&tablec, key);
+  ASSERT_EQm("TableC was not able to delete key.", tablec_oanm_get(&tablec, key) == NULL, 1);
 
   PASSm("TableC was able to add the empty slot index to the empty slots array (successful deletion).");
 }
@@ -124,17 +124,17 @@ TEST see_empty_slots_after_deleting(void) {
 TEST test_resize(void) {
   char keyRandom[1000];
   size_t i = 0;
-  struct tablec_bucket buckets[100];
-  struct tablec_bucket buckets2[1000];
+  struct tablec_oanm_bucket buckets[100];
+  struct tablec_oanm_bucket buckets2[1000];
 
-  struct tablec_ht tablec;
-  tablec_init(&tablec, buckets, 100);
+  struct tablec_oanm_ht tablec;
+  tablec_oanm_init(&tablec, buckets, 100);
 
   while(i++ < 1000) {
     sprintf(keyRandom, "%zu", i);
-    tablec_resize(&tablec, buckets2, tablec.capacity + 1);
-    tablec_set(&tablec, keyRandom, value);
-    ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, keyRandom)->value, value), 0);
+    tablec_oanm_resize(&tablec, buckets2, tablec.capacity + 1);
+    tablec_oanm_set(&tablec, keyRandom, value);
+    ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, keyRandom)->value, value), 0);
   }
 
   PASSm("TableC was able to resize the hashtable.");
@@ -144,14 +144,14 @@ TEST mini_fuzz_testing(void) {
   char keyRandom[1000];
   size_t i = 0;
 
-  struct tablec_ht tablec;
-  struct tablec_bucket buckets[1000];
-  tablec_init(&tablec, buckets, 1000);
+  struct tablec_oanm_ht tablec;
+  struct tablec_oanm_bucket buckets[1000];
+  tablec_oanm_init(&tablec, buckets, 1000);
 
   while(i++ < 1000) {
     sprintf(keyRandom, "%d", rand() % 1000);
-    tablec_set(&tablec, keyRandom, value);
-    ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_get(&tablec, keyRandom)->value, value), 0);
+    tablec_oanm_set(&tablec, keyRandom, value);
+    ASSERT_EQm("TableC was not able to set a key and a value.", strcmp((char *)tablec_oanm_get(&tablec, keyRandom)->value, value), 0);
   }
 
   PASSm("TableC was able to pass the mini fuzzy testing.");
