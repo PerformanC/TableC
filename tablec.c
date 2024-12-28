@@ -4,13 +4,13 @@
 
 #include "tablec.h"
 
-void tablec_init(struct tablec_ht *tablec, size_t max_capacity) {
+void tablec_oa_init(struct tablec_oa_ht *tablec, size_t max_capacity) {
   tablec->length = 0;
   tablec->capacity = max_capacity;
-  tablec->buckets = calloc(sizeof(struct tablec_bucket) * max_capacity, 1);
+  tablec->buckets = calloc(sizeof(struct tablec_oa_bucket) * max_capacity, 1);
 }
 
-static size_t __tablec_hash(struct tablec_ht *tablec, char *key) {
+static size_t __tablec_oa_hash(struct tablec_oa_ht *tablec, char *key) {
   size_t hash = 0, i = 0;
 
   while (key[i] != '\0') hash = hash * 37 + (key[i++] & 255);
@@ -18,26 +18,26 @@ static size_t __tablec_hash(struct tablec_ht *tablec, char *key) {
   return hash % tablec->capacity;
 }
 
-void tablec_resize(struct tablec_ht *tablec, size_t new_max_capacity) {
-  struct tablec_ht newHashtable;
-  tablec_init(&newHashtable, new_max_capacity);
+void tablec_oa_resize(struct tablec_oa_ht *tablec, size_t new_max_capacity) {
+  struct tablec_oa_ht newHashtable;
+  tablec_oa_init(&newHashtable, new_max_capacity);
 
   while (tablec->capacity--) {
     if (!tablec->buckets[tablec->capacity].key) continue;
       
-    tablec_set(&newHashtable, tablec->buckets[tablec->capacity].key, tablec->buckets[tablec->capacity].value);
+    tablec_oa_set(&newHashtable, tablec->buckets[tablec->capacity].key, tablec->buckets[tablec->capacity].value);
   }
 
-  tablec_cleanup(tablec);
+  tablec_oa_cleanup(tablec);
   *tablec = newHashtable;
 }
 
-void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
+void tablec_oa_set(struct tablec_oa_ht *tablec, char *key, void *value) {
   size_t hash;
 
-  if (tablec->length - 1 == tablec->capacity) tablec_resize(tablec, tablec->capacity * 2);
+  if (tablec->length - 1 == tablec->capacity) tablec_oa_resize(tablec, tablec->capacity * 2);
 
-  hash = __tablec_hash(tablec, key);
+  hash = __tablec_oa_hash(tablec, key);
 
   while (hash != tablec->capacity) {
     if (!tablec->buckets[hash].key) {
@@ -52,14 +52,14 @@ void tablec_set(struct tablec_ht *tablec, char *key, void *value) {
     hash++;
   }
 
-  tablec_resize(tablec, tablec->capacity * 2);
-  tablec_set(tablec, key, value);
+  tablec_oa_resize(tablec, tablec->capacity * 2);
+  tablec_oa_set(tablec, key, value);
 
   return;
 }
 
-void tablec_del(struct tablec_ht *tablec, char *key) {
-  size_t hash = __tablec_hash(tablec, key);
+void tablec_oa_del(struct tablec_oa_ht *tablec, char *key) {
+  size_t hash = __tablec_oa_hash(tablec, key);
 
   while (hash != tablec->capacity) {
     if (tablec->buckets[hash].key && strcmp(tablec->buckets[hash].key, key) == 0) {
@@ -75,8 +75,8 @@ void tablec_del(struct tablec_ht *tablec, char *key) {
   }
 }
 
-struct tablec_bucket *tablec_get(struct tablec_ht *tablec, char *key) {
-  size_t hash = __tablec_hash(tablec, key);
+struct tablec_oa_bucket *tablec_oa_get(struct tablec_oa_ht *tablec, char *key) {
+  size_t hash = __tablec_oa_hash(tablec, key);
 
   while (hash != tablec->capacity) {
     if (tablec->buckets[hash].key && strcmp(tablec->buckets[hash].key, key) == 0)
@@ -88,10 +88,10 @@ struct tablec_bucket *tablec_get(struct tablec_ht *tablec, char *key) {
   return NULL;
 }
 
-int tablec_full(struct tablec_ht *tablec) {
+int tablec_oa_full(struct tablec_oa_ht *tablec) {
   return tablec->capacity == tablec->length ? -1 : tablec->capacity - tablec->length;
 }
 
-void tablec_cleanup(struct tablec_ht *tablec) {
+void tablec_oa_cleanup(struct tablec_oa_ht *tablec) {
   free(tablec->buckets);
 }
